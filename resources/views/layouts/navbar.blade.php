@@ -17,11 +17,20 @@
                         Productos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver colores')
                         <a class="dropdown-item" href="/colores">Colores</a>
+                        @endcan
+                        @can('ver tallas')
                         <a class="dropdown-item" href="/tallas">Tallas</a>
+                        @endcan
+                        @can('ver materiales')
                         <a class="dropdown-item" href="/materiales">Materiales</a>
+                        @endcan
+
                         <div class="dropdown-divider"></div>
+                        @can('ver productos')
                         <a class="dropdown-item" href="/productos">Productos</a>
+                        @endcan
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -30,9 +39,13 @@
                         Usuarios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver empleados')
                         <a class="dropdown-item" href="/empleados">Empleados</a>
+                        @endcan
                         {{-- <a class="dropdown-item" href="#">Permisos</a> --}}
+                        @can('ver clientes')
                         <a class="dropdown-item" href="/clientes">Clientes</a>
+                        @endcan
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,10 +54,15 @@
                         Pedidos
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver pedidos')
                         <a class="dropdown-item" href="/pedidos_activos">Activos</a>
                         <a class="dropdown-item" href="/pedidos">Histórico</a>
+                        @endcan
+
                         <div class="dropdown-divider"></div>
+                        @can('ver ventas')
                         <a class="dropdown-item" href="#">Ventas</a>
+                        @endcan
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -53,12 +71,16 @@
                         Stock
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver proveedores')
                         <a class="dropdown-item" href="/proveedores">Proveedores</a>
+                        @endcan
+                        @can('ver insumos')
                         <a class="dropdown-item" href="#">Insumos</a>
+                        @endcan
+                        @can('ver bodegas')
                         <a class="dropdown-item" href="#">Bodega de insumos</a>
                         <a class="dropdown-item" href="#">Bodega de prod terminado</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        @endcan
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -67,10 +89,12 @@
                         Producción
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver producciones')
                         <a class="dropdown-item" href="#">Órdenes de producción</a>
+                        @endcan
+                        @can('ver rutas')
                         <a class="dropdown-item" href="#">Rutas de trabajo</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        @endcan
                     </div>
                 </li>
             </ul>

@@ -17,8 +17,35 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 
-    Route::resources([
-        'empleados' => 'EmpleadoController',
-    ]);
+    Route::prefix('empleados')->group(function () {
+
+        Route::get('/', 'EmpleadoController@index')
+            ->middleware('permission: ver empleados')
+            ->name('empleados.index');
+
+        Route::post('/', 'EmpleadoController@store')
+            ->middleware('permission: crear empleado')
+            ->name('empleados.store');
+
+        Route::get('/create', 'EmpleadoController@create')
+            ->middleware('permission: crear empleado')
+            ->name('empleados.create');
+
+        Route::get('/{empleado}', 'EmpleadoController@show')
+            ->middleware('permission: ver empleado')
+            ->name('empleados.show');
+
+        Route::put('/{empleado}', 'EmpleadoController@update')
+            ->middleware('permission: editar empleado')
+            ->name('empleados.update');
+
+        Route::delete('/{empleado}', 'EmpleadoController@destroy')
+            ->middleware('permission: eliminar empleado')
+            ->name('empleados.destroy');
+
+        Route::get('/{empleado}/edit', 'EmpleadoController@edit')
+            ->middleware('permission: editar empleado')
+            ->name('empleados.edit');
+    });
 
 });

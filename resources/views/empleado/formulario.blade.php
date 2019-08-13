@@ -5,6 +5,7 @@
 @section('contents')
 
 <form method="POST" action="/empleados/{{ $empleado->id }}" class="form-group" enctype="multipart/form-data">
+  @csrf  
   @if ($empleado->id)
   @method('PUT')
   @endif
@@ -42,13 +43,13 @@
     <div class="col-sm-6">
         <div class="form-group">
           <label for="rol">Rol: </label>
-          <select class="form-control @error('rol') is-invalid @enderror" name="rol_id" id="rol">
+          <select class="form-control @error('rol') is-invalid @enderror" name="rol" id="rol">
               <option selected disabled>Seleccione una opción...</option>
-              {{-- @foreach ($materiales as $material)
-              <option value="{{ $material->id }}"
-                {{ old('material_id') == $material->id  || $producto->material_id == $material->id ? 'selected=selected' : '' }}>
-                {{ $material->nombre }}</option>
-              @endforeach --}}
+              @foreach ($roles as $rol)
+              <option value="{{ $rol->name }}"
+                {{ old('rol') == $rol->name  || !empty($empleado->roles[0]->name) == $rol->name ? 'selected=selected' : '' }}>
+                {{ $rol->name }}</option>
+              @endforeach
             </select>
           @error('rol')
           <small id="helpId" class="form-text text-danger">{{ $message }}</small>

@@ -6,6 +6,7 @@ use App\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 class EmpleadoController extends Controller
 {
     /**
@@ -27,8 +28,10 @@ class EmpleadoController extends Controller
     public function create()
     {
         $empleado = new Empleado;
+        $empleado->roles = new Role;
+        $roles = Role::select('name')->get();
 
-        return view('empleado.formulario', compact('empleado'));
+        return view('empleado.formulario', compact('empleado', 'roles'));
     }
 
     /**
@@ -44,7 +47,7 @@ class EmpleadoController extends Controller
             'apellidos' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'correo' => 'required|email|unique:empleado',
             'password' => 'required|confirmed|min:6',
-            // 'rol' => 'required',
+            'rol' => 'required',
         ]);
 
         Empleado::create([
@@ -66,7 +69,9 @@ class EmpleadoController extends Controller
     public function show(Empleado $empleado)
     {
         if($empleado->id === Auth::id()){
-            return view('empleado.formulario', compact('empleado'));
+            $roles = Role::select('name')->get();
+            $empleado = $empleado->with('roles')->first();
+            return view('empleado.formulario', compact('empleado', 'roles'));
         }
         abort(403, 'Unauthorized action.');
     }
@@ -79,7 +84,8 @@ class EmpleadoController extends Controller
      */
     public function edit(Empleado $empleado)
     {
-        return view('empleado.formulario', compact('empleado'));
+        $roles = Role::select('name')->get();
+        return view('empleado.formulario', compact('empleado', 'roles'));
     }
 
     /**
@@ -96,7 +102,7 @@ class EmpleadoController extends Controller
             'nombres' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'apellidos' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'correo' => 'required|email|unique:empleado,correo,' . $empleado->id,
-            // 'rol' => 'required',
+            'rol' => 'required',
         ]);
 
         if ($request['password']) {

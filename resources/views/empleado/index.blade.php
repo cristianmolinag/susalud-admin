@@ -4,6 +4,8 @@
 
 @section('url', url('/empleados/create'))
 
+@section('url_permiso', 'crear empleado')
+
 @section('contents')
 
 @if (session('message'))
@@ -36,12 +38,18 @@
                 <td class="align-middle"> {{ $empleado->created_at->diffForHumans() }} </td>
                 <td class="align-middle">
                     <div class="btn-group" role="group" aria-label="Basic example">
+                        @can('editar empleado')
                         <a href="{{ route('empleados.edit', $empleado->id) }}"
                             class="btn btn-warning btn-sm m-1">Editar</a>
+                        @endcan
+                        @can('eliminar empleado')
                         <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST">
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm m-1">Borrar</button>
+                            @csrf
+                            <button type="submit" onclick="return confirm('¿Desea borrar el registro?')"
+                                class="btn btn-danger btn-sm m-1">Borrar</button>
                         </form>
+                        @endcan
                     </div>
                 </td>
             </tr>
