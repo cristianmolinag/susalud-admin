@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Empleado;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class EmpleadoController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = Empleado::paginate(10);
+        return view('empleado.index', compact('empleados'));
     }
 
     /**
@@ -23,7 +26,9 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        $empleado = new Empleado;
+
+        return view('empleado.formulario', compact('empleado'));
     }
 
     /**
@@ -34,7 +39,22 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombres' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
+            'apellidos' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
+            'correo' => 'required|email|unique:empleado',
+            'password' => 'required|confirmed|min:6',
+            // 'rol' => 'required',
+        ]);
+
+        Empleado::create([
+            'nombres' => $request['nombres'],
+            'apellidos' => $request['apellidos'],
+            'correo' => $request['correo'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        return redirect()->route('empleados.index')->with('message', 'Registro creado con éxito!');
     }
 
     /**
@@ -43,9 +63,12 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Empleado $empleado)
     {
-        //
+        if($empleado->id === Auth::id()){
+            return view('empleado.formulario', compact('empleado'));
+        }
+        abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -54,9 +77,9 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Empleado $empleado)
     {
-        //
+        return view('empleado.formulario', compact('empleado'));
     }
 
     /**
@@ -66,9 +89,31 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Empleado $empleado)
     {
-        //
+
+        $request->validate([
+            'nombres' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
+            'apellidos' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
+            'correo' => 'required|email|unique:empleado,correo,' . $empleado->id,
+            // 'rol' => 'required',
+        ]);
+
+        if ($request['password']) {
+            $request->validate([
+                'password' => 'required|confirmed|min:6',
+            ]);
+
+            $empleado->password = $request['password'];
+        }
+
+        $empleado->nombres = $request['nombres'];
+        $empleado->apellidos = $request['apellidos'];
+        $empleado->correo = $request['correo'];
+
+        $empleado->save();
+
+        return redirect()->route('empleados.index')->with('message', 'Registro editado con éxito!');
     }
 
     /**
@@ -77,8 +122,9 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Empleado $empleado)
     {
-        //
+        $empleado->delete();
+        return redirect()->route('empleados.index')->with('message', 'Registro eliminado con éxito!');
     }
 }
