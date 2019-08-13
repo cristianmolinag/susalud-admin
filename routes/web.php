@@ -75,4 +75,32 @@ Route::middleware(['auth'])->group(function () {
             ->name('colores.edit');
     });
 
+    Route::prefix('materiales')->group(function () {
+
+        Route::get('/', 'MaterialController@index')
+            ->middleware('permission: ver materiales')
+            ->name('materiales.index');
+
+        Route::post('/', 'MaterialController@store')
+            ->middleware('permission: crear material')
+            ->name('materiales.store');
+
+        Route::get('/create', 'MaterialController@create')
+            ->middleware('permission: crear material')
+            ->name('materiales.create');
+
+        Route::put('/{material}', 'MaterialController@update')
+            ->middleware('permission: editar material')
+            ->name('materiales.update');
+
+        Route::delete('/{material}', 'MaterialController@destroy')
+            ->middleware('permission: eliminar material')
+            ->name('materiales.destroy');
+
+        Route::get('/{material}/edit', 'MaterialController@edit')
+            ->middleware('permission: editar material')
+            ->name('materiales.edit');
+    });
+
+
 });

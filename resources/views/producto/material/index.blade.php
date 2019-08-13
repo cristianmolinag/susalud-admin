@@ -1,8 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.contindex')
 
-@section('title', 'Materiales')
+@section('title', 'Listado de materiales')
 
-@section('content')
+@section('url', url('/materiales/create'))
+
+@section('url_permiso', 'crear material')
+
+@section('contents')
 
 @if (session('message'))
 <div class="alert alert-success">
@@ -10,11 +14,6 @@
 </div>
 @endif
 
-<div class="row">
-    <div class="col-lg-12">
-        <a class="btn btn-success btn-xl float-right" href="{{ url('/materiales/create') }}">Nuevo</a>
-    </div>
-</div>
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
@@ -29,18 +28,25 @@
         <tbody>
             @foreach ($materiales as $index => $material)
             <tr class="{{ !$material->estado ? 'text-muted' : ''}}">
-                <td class="text-center"> {{ $index +1 }} </td>
-                <td> {{ $material->nombre }} </td>
-                <td> {{ $material->estado ? 'Activo' : 'inactivo' }} </td>
-                <td> {{ $material->created_at->diffForHumans() }} </td>
-                <td class="text-center">
+                <td class="align-middle text-center"> {{ $index +1 }} </td>
+                <td class="align-middle"> {{ $material->nombre }} </td>
+                <td class="align-middle"> {{ $material->estado ? 'Activo' : 'inactivo' }} </td>
+                <td class="align-middle"> {{ $material->created_at->diffForHumans() }} </td>
+                <td class="align-middle text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
+                        @can('editar material')
+                        <a href="{{ route('materiales.edit', $material->id) }}"
+                            class="btn btn-warning btn-sm m-1">Editar</a>
+                        @endcan
 
-                        <a href="{{ route('materiales.edit', $material->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>
+                        @can('eliminar material')
                         <form action="{{ route('materiales.destroy', $material->id) }}" method="POST">
+                            @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm m-1">Borrar</button>
+                            <button type="submit" class="btn btn-danger btn-sm m-1"
+                                onclick="return confirm('¿Desea borrar el registro?')">Borrar</button>
                         </form>
+                        @endcan
                     </div>
                 </td>
             </tr>

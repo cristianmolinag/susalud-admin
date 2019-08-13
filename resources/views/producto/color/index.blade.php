@@ -35,7 +35,6 @@
                 <td class="align-middle text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         @can('editar color')
-
                         <a href="{{ route('colores.edit', $color->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>
                         @endcan
                         @can('eliminar color')

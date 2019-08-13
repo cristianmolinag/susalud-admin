@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.contform')
 
 @section('title', ($material->id ? 'Editar' : 'Nuevo') . ' material' )
 
-@section('content')
+@section('contents')
 
 <form method="POST" action="/materiales/{{ $material->id }}" class="form-group">
+  @csrf
   @if ($material->id)
   @method('PUT')
   @endif
@@ -27,6 +28,7 @@
   @endif
   <div class="row">
     <div class="col-lg-12">
+      <a href="{{ url('materiales') }}" class="btn btn-danger float-left">Cancelar</a>
       <button type="submit" class="btn btn-primary float-right">Guardar</button>
     </div>
   </div>
