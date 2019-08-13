@@ -48,4 +48,31 @@ Route::middleware(['auth'])->group(function () {
             ->name('empleados.edit');
     });
 
+    Route::prefix('colores')->group(function () {
+
+        Route::get('/', 'ColorController@index')
+            ->middleware('permission: ver colores')
+            ->name('colores.index');
+
+        Route::post('/', 'ColorController@store')
+            ->middleware('permission: crear color')
+            ->name('colores.store');
+
+        Route::get('/create', 'ColorController@create')
+            ->middleware('permission: crear color')
+            ->name('colores.create');
+
+        Route::put('/{color}', 'ColorController@update')
+            ->middleware('permission: editar color')
+            ->name('colores.update');
+
+        Route::delete('/{color}', 'ColorController@destroy')
+            ->middleware('permission: eliminar color')
+            ->name('colores.destroy');
+
+        Route::get('/{color}/edit', 'ColorController@edit')
+            ->middleware('permission: editar color')
+            ->name('colores.edit');
+    });
+
 });

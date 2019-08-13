@@ -30,7 +30,7 @@
         <tbody class="text-center">
             @foreach ($empleados as $index => $empleado)
             <tr>
-                <td class="align-middle"> {{ $index +1 }} </td>
+                <td class="align-middle text-center"> {{ $index +1 }} </td>
                 <td class="align-middle"> {{ $empleado->nombres }} </td>
                 <td class="align-middle"> {{ $empleado->apellidos }} </td>
                 <td class="align-middle"> {{ $empleado->correo }} </td>
