@@ -156,5 +156,20 @@ Route::middleware(['auth'])->group(function () {
             ->name('productos.edit');
     });
 
+    Route::prefix('clientes')->group(function () {
+
+        Route::get('/', 'ClienteController@index')
+            ->middleware('permission: ver clientes')
+            ->name('clientes.index');
+
+            Route::get('/{empleado}', 'ClienteController@show')
+            ->middleware('permission: ver cliente')
+            ->name('clientes.show');
+
+        Route::put('/{cliente}', 'ClienteController@update')
+            ->middleware('permission: editar cliente')
+            ->name('clientes.update');
+    });
+
 
 });
