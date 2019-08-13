@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.contform')
 
 @section('title', ($producto->id ? 'Editar' : 'Nuevo') . ' producto' )
 
-@section('content')
+@section('contents')
 
 <form method="POST" action="/productos/{{ $producto->id }}" class="form-group" enctype="multipart/form-data">
+  @csrf
   @if ($producto->id)
   @method('PUT')
   @endif
@@ -74,11 +75,8 @@
       @foreach ($lista_colores as $index => $color)
       <div class="form-group form-check form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="{{ $color->id }}" name="colores[]"
-          @foreach ($colores as $item)
-          {{$item === $color->id ? 'checked' : ''}}
-          @endforeach
-          >{{ $color->nombre }}
+          <input type="checkbox" class="form-check-input" value="{{ $color->id }}" name="colores[]" @foreach ($colores
+            as $item) {{$item === $color->id ? 'checked' : ''}} @endforeach>{{ $color->nombre }}
         </label>
       </div>
       @endforeach
@@ -88,16 +86,13 @@
     </div>
 
     <div class="col-sm-6">
-        <span style="margin-right: 10px;">Tallas:</span>
-        <br>
+      <span style="margin-right: 10px;">Tallas:</span>
+      <br>
       @foreach ($lista_tallas as $index => $talla)
       <div class="form-group form-check form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="{{ $talla->id }}" name="tallas[]"
-          @foreach ($tallas as $item)
-          {{$item === $talla->id ? 'checked' : ''}}
-          @endforeach
-          >{{ $talla->nombre }}
+          <input type="checkbox" class="form-check-input" value="{{ $talla->id }}" name="tallas[]" @foreach ($tallas as
+            $item) {{$item === $talla->id ? 'checked' : ''}} @endforeach>{{ $talla->nombre }}
         </label>
       </div>
       @endforeach
@@ -106,28 +101,28 @@
       @enderror
     </div>
   </div>
-<hr>
-<div class="row">
+  <hr>
+  <div class="row">
 
-  <div class="col-sm-6">
-    @if ($producto->id)
-    <span style="margin-right: 10px;">Estado del producto:</span>
-    <br>
-    <div class="form-group form-check form-check-inline">
-      <label class="form-check-label">
-        <input type="hidden" name="estado" value="0">
-        <input type="checkbox" class="form-check-input" name="estado" value="1"
-        checked={{ $producto->estado ? 'true' : 'false' }} >
-        Activo
-      </label>
+    <div class="col-sm-6">
+      @if ($producto->id)
+      <span style="margin-right: 10px;">Estado del producto:</span>
+      <br>
+      <div class="form-group form-check form-check-inline">
+        <label class="form-check-label">
+          <input type="hidden" name="estado" value="0">
+          <input type="checkbox" class="form-check-input" name="estado" value="1"
+            checked={{ $producto->estado ? 'true' : 'false' }}>
+          Activo
+        </label>
+      </div>
+      @endif
     </div>
-    @endif
   </div>
-</div>
-  
 
   <div class="row">
     <div class="col-lg-12">
+      <a href="{{ url('productos') }}" class="btn btn-danger float-left">Cancelar</a>
       <button type="submit" class="btn btn-primary float-right">Guardar</button>
     </div>
   </div>

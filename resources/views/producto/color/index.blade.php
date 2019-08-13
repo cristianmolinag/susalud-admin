@@ -39,13 +39,12 @@
                         @endcan
                         @can('eliminar color')
                         <form action="{{ route('colores.destroy', $color->id) }}" method="POST">
-                            @method('DELETE')
                             @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm m-1"
                                 onclick="return confirm('¿Desea borrar el registro?')">Borrar</button>
                         </form>
                         @endcan
-
                     </div>
                 </td>
             </tr>

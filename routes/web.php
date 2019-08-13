@@ -102,5 +102,59 @@ Route::middleware(['auth'])->group(function () {
             ->name('materiales.edit');
     });
 
+    Route::prefix('tallas')->group(function () {
+
+        Route::get('/', 'TallaController@index')
+            ->middleware('permission: ver tallas')
+            ->name('tallas.index');
+
+        Route::post('/', 'TallaController@store')
+            ->middleware('permission: crear talla')
+            ->name('tallas.store');
+
+        Route::get('/create', 'TallaController@create')
+            ->middleware('permission: crear talla')
+            ->name('tallas.create');
+
+        Route::put('/{talla}', 'TallaController@update')
+            ->middleware('permission: editar talla')
+            ->name('tallas.update');
+
+        Route::delete('/{talla}', 'TallaController@destroy')
+            ->middleware('permission: eliminar talla')
+            ->name('tallas.destroy');
+
+        Route::get('/{talla}/edit', 'TallaController@edit')
+            ->middleware('permission: editar talla')
+            ->name('tallas.edit');
+    });
+
+    Route::prefix('productos')->group(function () {
+
+        Route::get('/', 'ProductoController@index')
+            ->middleware('permission: ver productos')
+            ->name('productos.index');
+
+        Route::post('/', 'ProductoController@store')
+            ->middleware('permission: crear producto')
+            ->name('productos.store');
+
+        Route::get('/create', 'ProductoController@create')
+            ->middleware('permission: crear producto')
+            ->name('productos.create');
+
+        Route::put('/{producto}', 'ProductoController@update')
+            ->middleware('permission: editar producto')
+            ->name('productos.update');
+
+        Route::delete('/{producto}', 'ProductoController@destroy')
+            ->middleware('permission: eliminar producto')
+            ->name('productos.destroy');
+
+        Route::get('/{producto}/edit', 'ProductoController@edit')
+            ->middleware('permission: editar producto')
+            ->name('productos.edit');
+    });
+
 
 });

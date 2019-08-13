@@ -5,7 +5,7 @@
 @section('contents')
 
 <form method="POST" action="/colores/{{ $color->id }}" class="form-group">
-  @csrf  
+  @csrf
   @if ($color->id)
   @method('PUT')
   @endif
@@ -28,7 +28,7 @@
   @endif
   <div class="row">
     <div class="col-lg-12">
-        <a href="{{ url('colores') }}" class="btn btn-danger float-left">Cancelar</a>
+      <a href="{{ url('colores') }}" class="btn btn-danger float-left">Cancelar</a>
       <button type="submit" class="btn btn-primary float-right">Guardar</button>
     </div>
   </div>

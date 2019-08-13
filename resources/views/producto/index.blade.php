@@ -1,8 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.contindex')
 
-@section('title', 'Productos')
+@section('title', 'Listado de productos')
 
-@section('content')
+@section('url', url('/productos/create'))
+
+@section('url_permiso', 'crear producto')
+
+@section('contents')
 
 @if (session('message'))
 <div class="alert alert-success">
@@ -10,11 +14,6 @@
 </div>
 @endif
 
-<div class="row">
-    <div class="col-lg-12">
-        <a class="btn btn-success btn-xl float-right" href="{{ url('/productos/create') }}">Nuevo</a>
-    </div>
-</div>
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
@@ -43,11 +42,18 @@
                 <td> {{ $producto->created_at->diffForHumans() }} </td>
                 <td class="text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>
+                        @can('editar producto')
+                        <a href="{{ route('productos.edit', $producto->id) }}"
+                            class="btn btn-warning btn-sm m-1">Editar</a>
+                        @endcan
+                        @can('eliminar producto')
                         <form action="{{ route('productos.destroy', $producto->id) }}" method="POST">
+                            @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm m-1">Borrar</button>
+                            <button type="submit" class="btn btn-danger btn-sm m-1"
+                                onclick="return confirm('¿Desea borrar el registro?')">Borrar</button>
                         </form>
+                        @endcan
                     </div>
                 </td>
             </tr>
