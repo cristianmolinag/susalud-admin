@@ -13,6 +13,17 @@
 
 Auth::routes(['register' => false]);
 
+Route::prefix('app/')->group(function () {
+    Route::post('login', 'AppController@login');
+    Route::get('logout', 'AppController@logout');
+    Route::post('registro_cliente', 'AppController@registro_cliente');
+    Route::get('show_cliente/{id}', 'AppController@show_cliente');
+    Route::post('actualizar_cliente/{id}', 'AppController@actualizar_cliente');
+    Route::get('get_productos', 'AppController@get_productos');
+    Route::get('get_mis_pedidos/{id}', 'AppController@get_mis_pedidos');
+    Route::post('crear_pedido', 'AppController@crear_pedido');
+});
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
@@ -162,7 +173,7 @@ Route::middleware(['auth'])->group(function () {
             ->middleware('permission: ver clientes')
             ->name('clientes.index');
 
-            Route::get('/{empleado}', 'ClienteController@show')
+            Route::get('/{cliente}', 'ClienteController@show')
             ->middleware('permission: ver cliente')
             ->name('clientes.show');
 

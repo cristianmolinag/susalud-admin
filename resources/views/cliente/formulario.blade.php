@@ -91,12 +91,12 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
+            <form method="POST" action="/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
+                <button type="submit" class="btn btn-secondary m-1 float-left">Reestablecer contraseña</button>
+            </form>
             <button type="submit" class="btn btn-primary m-1 float-right">Guardar</button>
         </div>
     </div>
-</form>
-<form method="POST" action="/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
-    <button type="submit" class="btn btn-secondary m-1 float-left">Reestablecer contraseña</button>
 </form>
 
 @endsection
