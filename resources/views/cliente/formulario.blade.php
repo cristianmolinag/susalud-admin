@@ -3,10 +3,16 @@
 @section('title', 'Editar cliente' )
 
 @section('content')
-
+<div class="row">
+        <form method="POST" action="/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
+            @csrf
+            <button type="submit" class="btn btn-secondary m-1 float-left">Reestablecer contraseña</button>
+        </form>
+</div>
 
 <form method="POST" action="/clientes/{{ $cliente->id }}" class="form-group">
     @method('PUT')
+    @csrf
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -67,7 +73,7 @@
                 <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            </div>
+        </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="correo">Código postal: </label>
@@ -91,12 +97,10 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <form method="POST" action="/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
-                <button type="submit" class="btn btn-secondary m-1 float-left">Reestablecer contraseña</button>
-            </form>
             <button type="submit" class="btn btn-primary m-1 float-right">Guardar</button>
         </div>
     </div>
 </form>
+
 
 @endsection

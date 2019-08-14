@@ -58,8 +58,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @can('ver pedidos')
-                        <a class="dropdown-item" href="/pedidos_activos">Activos</a>
-                        <a class="dropdown-item" href="/pedidos">Histórico</a>
+                    <a class="dropdown-item" href=" {{route('pedidos.index', 'activos')}} ">Activos</a>
+                        <a class="dropdown-item" href="{{route('pedidos.index', 'historico')}}">Histórico</a>
                         @endcan
 
                         <div class="dropdown-divider"></div>

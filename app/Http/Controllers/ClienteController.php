@@ -30,9 +30,9 @@ class ClienteController extends Controller
             'documento' => 'required',
             'direccion' => 'required',
             'cod_postal' => 'required',
-            'telefono' => 'required'
-            ]);
-            
+            'telefono' => 'required',
+        ]);
+
         $cliente->nombres = $request['nombres'];
         $cliente->apellidos = $request['apellidos'];
         $cliente->correo = $request['correo'];
@@ -45,12 +45,12 @@ class ClienteController extends Controller
         return redirect()->route('clientes.index')->with('message', 'Registro editado con éxito!');
     }
 
-    public function reset_pass($id){
-
+    public function reset_pass($id)
+    {
         $cliente = Cliente::find($id);
         $cliente->password = Hash::make('secret');
         $cliente->save();
-        return redirect()->route('clientes.index')->with('message', 'Contraseña reiniciada con éxito');
+        return redirect()->route('clientes.index')->with('message', 'Se asignó la conraseña Secret');
     }
 
 }

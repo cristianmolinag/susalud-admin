@@ -173,14 +173,37 @@ Route::middleware(['auth'])->group(function () {
             ->middleware('permission: ver clientes')
             ->name('clientes.index');
 
-            Route::get('/{cliente}', 'ClienteController@show')
+        Route::get('/{cliente}', 'ClienteController@show')
             ->middleware('permission: ver cliente')
             ->name('clientes.show');
 
         Route::put('/{cliente}', 'ClienteController@update')
             ->middleware('permission: editar cliente')
             ->name('clientes.update');
+
+        Route::post('/{id}/reset_pass', 'ClienteController@reset_pass')
+            ->middleware('permission: editar cliente')
+            ->name('clientes.reset_pass');
+
     });
 
+    Route::prefix('pedidos')->group(function () {
 
+        Route::get('/{val}', 'PedidoController@index')
+            ->middleware('permission: ver pedidos')
+            ->name('pedidos.index');
+
+        Route::get('/{pedido}/show', 'PedidoController@show')
+            ->middleware('permission: ver pedido')
+            ->name('pedidos.show');
+
+        Route::get('/{pedido}/edit', 'PedidoController@edit')
+            ->middleware('permission: editar pedido')
+            ->name('pedidos.edit');
+
+        Route::put('/{pedido}', 'PedidoController@update')
+            ->middleware('permission: editar pedido')
+            ->name('pedidos.update');
+
+    });
 });
