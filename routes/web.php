@@ -206,4 +206,32 @@ Route::middleware(['auth'])->group(function () {
             ->name('pedidos.update');
 
     });
+
+    Route::prefix('proveedores')->group(function () {
+
+        Route::get('/', 'ProveedorController@index')
+        ->middleware('permission: ver proveedores')
+        ->name('proveedores.index');
+
+        Route::post('/', 'ProveedorController@store')
+        ->middleware('permission: crear proveedor')
+        ->name('proveedores.store');
+
+        Route::get('/create', 'ProveedorController@create')
+        ->middleware('permission: crear proveedor')
+        ->name('proveedores.create');
+
+    Route::put('/{proveedor}', 'ProveedorController@update')
+        ->middleware('permission: editar proveedor')
+        ->name('proveedores.update');
+
+        Route::delete('/{proveedor}', 'ProveedorController@destroy')
+        ->middleware('permission: eliminar proveedor')
+        ->name('proveedores.destroy');
+
+        Route::get('/{proveedor}/edit', 'ProveedorController@edit')
+        ->middleware('permission: editar proveedor')
+        ->name('proveedores.edit');
+
+    });
 });
