@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Empleado;
+use App\Cargo;
+use App\Contrato;
 
 class Permisos extends Seeder
 {
@@ -18,11 +20,19 @@ class Permisos extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $admin =  Empleado::Create([
-            'nombres' => 'Administrador',
-            'apellidos' => 'Del Sistema',
+            'nombres' => 'Administrador Del Sistema',
             'correo' => 'admin@susalud.com',
             'password' => Hash::make('secret'),
         ]);
+
+         $cargo = Cargo::Create([
+            'nombre' => 'Administrador'
+         ]);
+
+         $contrato = Contrato::Create([
+            'empleado_id' => $admin->id,
+            'cargo_id' => $cargo->id
+         ]);
 
         // Creacion de permissos
         
@@ -95,6 +105,18 @@ class Permisos extends Seeder
         Permission::create(['name' => 'crear ruta']);
         Permission::create(['name' => 'editar ruta']);
         Permission::create(['name' => 'eliminar ruta']);
+
+        Permission::create(['name' => 'ver cargos']);
+        Permission::create(['name' => 'ver cargo']);
+        Permission::create(['name' => 'crear cargo']);
+        Permission::create(['name' => 'editar cargo']);
+        Permission::create(['name' => 'eliminar cargo']);
+
+        Permission::create(['name' => 'ver contrato']);
+        Permission::create(['name' => 'ver contratos']);
+        Permission::create(['name' => 'crear contrato']);
+        Permission::create(['name' => 'editar contrato']);
+        Permission::create(['name' => 'eliminar contrato']);
         
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'ver ']);
@@ -103,12 +125,11 @@ class Permisos extends Seeder
         // Permission::create(['name' => 'eliminar ']);
 
         // Creación de roles
-        $rol_admin = Role::create(['name' => 'administrador']);
+        $rol_admin = Role::create(['name' => 'Administrador']);
+        $rol_operador = Role::create(['name' => 'Operador']);
 
         // Asignación de permisos a roles
-        // $rol_admin->givePermissionTo(Permission::all());
-
-
+        $rol_admin->givePermissionTo(Permission::all());
         $admin->assignRole($rol_admin->name);
     }
 }

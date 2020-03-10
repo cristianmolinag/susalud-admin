@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaEmpleado extends Migration
+class CrearTablaCargo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CrearTablaEmpleado extends Migration
      */
     public function up()
     {
-        Schema::create('empleado', function (Blueprint $table) {
+        Schema::create('cargo', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombres');            
-            $table->string('correo')->unique();
-            $table->string('password');
-            $table->boolean('estado')->default(1);
-            $table->rememberToken();
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CrearTablaEmpleado extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empleado');
+        Schema::dropIfExists('cargo');
     }
 }

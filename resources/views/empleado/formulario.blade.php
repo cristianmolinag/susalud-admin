@@ -1,6 +1,6 @@
 @extends('layouts.contform')
 
-@section('title', ($empleado->id ? 'Editar' : 'Nuevo') . ' Empleado' )
+@section('title', ($empleado->id ? 'Editar' : 'Nuevo') . ' Contrato' )
 
 @section('contents')
 
@@ -14,18 +14,8 @@
       <div class="form-group">
         <label for="nombres">Nombres: </label>
         <input type="text" class="form-control @error('nombres') is-invalid @enderror" name="nombres"
-          placeholder="Ingrese los nombres" value="{{ $empleado->nombres }}" autofocus>
+      placeholder="Ingrese los nombres" value="{{ old('nombres', $empleado->nombres) }}" autofocus>
         @error('nombres')
-        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-        @enderror
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="apellidos">Apellidos: </label>
-        <input type="text" class="form-control @error('apellidos') is-invalid @enderror" name="apellidos"
-          placeholder="Ingrese los apellidos" value="{{ $empleado->apellidos }}">
-        @error('apellidos')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>
         @enderror
       </div>
@@ -34,28 +24,44 @@
       <div class="form-group">
         <label for="correo">Correo: </label>
         <input type="email" class="form-control @error('correo') is-invalid @enderror" name="correo"
-          placeholder="Ingrese el correo" value="{{ $empleado->correo }}">
+          placeholder="Ingrese el correo" value="{{ old('correo',$empleado->correo) }}">
         @error('correo')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>
         @enderror
       </div>
     </div>
     <div class="col-sm-6">
-        <div class="form-group">
-          <label for="rol">Rol: </label>
-          <select class="form-control @error('rol') is-invalid @enderror" name="rol" id="rol">
-              <option selected disabled>Seleccione una opción...</option>
-              @foreach ($roles as $rol)
-              <option value="{{ $rol->name }}"
-                {{ old('rol') == $rol->name  || !empty($empleado->roles[0]->name) == $rol->name ? 'selected=selected' : '' }}>
-                {{ $rol->name }}</option>
-              @endforeach
-            </select>
-          @error('rol')
-          <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-          @enderror
-        </div>
+      <div class="form-group">
+        <label for="rol">Rol: </label>
+        <select class="form-control @error('rol') is-invalid @enderror" name="rol" id="rol">
+            <option selected disabled>Seleccione una opción...</option>
+            @foreach ($roles as $rol)
+            <option value="{{ $rol->name }}"
+              {{ $empleado->id ? ($empleado->roles[0]->name == $rol->name ? 'selected' : '') : '' }} {{ old('rol') == $rol->name ? 'selected' : '' }}>
+              {{ $rol->name }}</option>
+            @endforeach
+          </select>
+        @error('rol')
+        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+        @enderror
       </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="cargo_id">Cargo: </label>
+        <select class="form-control @error('cargo_id') is-invalid @enderror" name="cargo_id" id="cargo_id">
+            <option selected disabled>Seleccione una opción...</option>
+            @foreach ($cargos as $cargo)
+            <option value="{{ $cargo->id }}"
+              {{ $empleado->id ? ($empleado->cargos[0]->id == $cargo->id ? 'selected' : '') : '' }} {{ old('cargo_id') == $cargo->id ? 'selected' : '' }}>
+              {{ $cargo->nombre }}</option>
+            @endforeach
+          </select>
+        @error('cargo_id')
+        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+        @enderror
+      </div>
+    </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label for="correo">Contraseña: </label>

@@ -42,6 +42,9 @@
                         Usuarios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @can('ver cargos')
+                        <a class="dropdown-item" href="/cargos">Cargos</a>
+                        @endcan
                         @can('ver empleados')
                         <a class="dropdown-item" href="/empleados">Empleados</a>
                         @endcan

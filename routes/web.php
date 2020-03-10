@@ -221,7 +221,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission: crear proveedor')
         ->name('proveedores.create');
 
-    Route::put('/{proveedor}', 'ProveedorController@update')
+        Route::put('/{proveedor}', 'ProveedorController@update')
         ->middleware('permission: editar proveedor')
         ->name('proveedores.update');
 
@@ -232,6 +232,32 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{proveedor}/edit', 'ProveedorController@edit')
         ->middleware('permission: editar proveedor')
         ->name('proveedores.edit');
+    });
 
+    Route::prefix('cargos')->group(function () {
+
+        Route::get('/', 'CargoController@index')
+        ->middleware('permission: ver cargos')
+        ->name('cargos.index');
+
+        Route::post('/', 'CargoController@store')
+        ->middleware('permission: crear cargo')
+        ->name('cargos.store');
+
+        Route::get('/create', 'CargoController@create')
+        ->middleware('permission: crear cargo')
+        ->name('cargos.create');
+
+        Route::put('/{cargo}', 'CargoController@update')
+        ->middleware('permission: editar cargo')
+        ->name('cargos.update');
+
+        Route::delete('/{cargo}', 'CargoController@destroy')
+        ->middleware('permission: eliminar cargo')
+        ->name('cargos.destroy');
+
+        Route::get('/{cargo}/edit', 'CargoController@edit')
+        ->middleware('permission: editar cargo')
+        ->name('cargos.edit');
     });
 });

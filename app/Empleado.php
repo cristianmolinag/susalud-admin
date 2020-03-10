@@ -2,12 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-
-
 
 class Empleado extends Authenticatable
 {
@@ -16,10 +13,19 @@ class Empleado extends Authenticatable
 
     protected $fillable = [
         'nombres',
-        'apellidos',
         'correo',
-        'password'
+        'password',
     ];
+
+    public function getCargoAttribute()
+    {
+        return $this->cargos->first(); // not addresses()->first(); as it would run the query everytime
+    }
+
+    public function cargos()
+    {
+        return $this->belongsToMany(Cargo::class, 'contrato')->withTimestamps()->wherePivot('estado', 1);
+    }
 
     protected $hidden = [
         'password', 'remember_token',
@@ -28,5 +34,5 @@ class Empleado extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 }
