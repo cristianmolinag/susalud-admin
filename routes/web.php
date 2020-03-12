@@ -260,4 +260,31 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission: editar cargo')
         ->name('cargos.edit');
     });
+
+    Route::prefix('insumos')->group(function () {
+
+        Route::get('/', 'InsumoController@index')
+        ->middleware('permission: ver insumos')
+        ->name('insumos.index');
+
+        Route::post('/', 'InsumoController@store')
+        ->middleware('permission: crear insumo')
+        ->name('insumos.store');
+
+        Route::get('/create', 'InsumoController@create')
+        ->middleware('permission: crear insumo')
+        ->name('insumos.create');
+
+        Route::put('/{insumo}', 'InsumoController@update')
+        ->middleware('permission: editar insumo')
+        ->name('insumos.update');
+
+        Route::delete('/{insumo}', 'InsumoController@destroy')
+        ->middleware('permission: eliminar insumo')
+        ->name('insumos.destroy');
+
+        Route::get('/{insumo}/edit', 'InsumoController@edit')
+        ->middleware('permission: editar insumo')
+        ->name('insumos.edit');
+    });
 });

@@ -94,17 +94,17 @@ class Permisos extends Seeder
         Permission::create(['name' => 'editar bodega']);
         Permission::create(['name' => 'eliminar bodega']);
 
-        Permission::create(['name' => 'ver producciones']);
-        Permission::create(['name' => 'ver produccion']);
-        Permission::create(['name' => 'crear produccion']);
-        Permission::create(['name' => 'editar produccion']);
-        Permission::create(['name' => 'eliminar produccion']);
+        // Permission::create(['name' => 'ver producciones']);
+        // Permission::create(['name' => 'ver produccion']);
+        // Permission::create(['name' => 'crear produccion']);
+        // Permission::create(['name' => 'editar produccion']);
+        // Permission::create(['name' => 'eliminar produccion']);
 
-        Permission::create(['name' => 'ver rutas']);
-        Permission::create(['name' => 'ver ruta']);
-        Permission::create(['name' => 'crear ruta']);
-        Permission::create(['name' => 'editar ruta']);
-        Permission::create(['name' => 'eliminar ruta']);
+        // Permission::create(['name' => 'ver rutas']);
+        // Permission::create(['name' => 'ver ruta']);
+        // Permission::create(['name' => 'crear ruta']);
+        // Permission::create(['name' => 'editar ruta']);
+        // Permission::create(['name' => 'eliminar ruta']);
 
         Permission::create(['name' => 'ver cargos']);
         Permission::create(['name' => 'ver cargo']);

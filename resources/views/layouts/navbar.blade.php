@@ -81,7 +81,7 @@
                         <a class="dropdown-item" href="/proveedores">Proveedores</a>
                         @endcan
                         @can('ver insumos')
-                        <a class="dropdown-item" href="#">Insumos</a>
+                        <a class="dropdown-item" href="/insumos">Insumos</a>
                         @endcan
                         @can('ver bodegas')
                         <a class="dropdown-item" href="#">Bodega de insumos</a>
