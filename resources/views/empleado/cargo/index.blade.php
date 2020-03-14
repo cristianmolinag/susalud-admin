@@ -2,10 +2,6 @@
 
 @section('title', 'Listado de cargos')
 
-@section('url', url('/cargos/create'))
-
-@section('url_permiso', 'crear cargo')
-
 @section('contents')
 
 @if (session('message'))
@@ -13,6 +9,10 @@
     {{ session('message') }}
 </div>
 @endif
+
+@can('crear cargo')
+<a class="btn btn-success btn-sm float-right" href="{{url('/cargos/create')}}">Nuevo</a>
+@endcan
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">

@@ -2,10 +2,6 @@
 
 @section('title', 'Listado de empleados')
 
-@section('url', url('/empleados/create'))
-
-@section('url_permiso', 'crear empleado')
-
 @section('contents')
 
 @if (session('message'))
@@ -13,6 +9,10 @@
     {{ session('message') }}
 </div>
 @endif
+
+@can('crear empleado')
+<a class="btn btn-success btn-sm float-right" href="{{url('/empleados/create')}}">Nuevo</a>
+@endcan
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">

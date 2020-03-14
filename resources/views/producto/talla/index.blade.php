@@ -2,10 +2,6 @@
 
 @section('title', 'Listado de tallas')
 
-@section('url', url('/tallas/create'))
-
-@section('url_permiso', 'crear talla')
-
 @section('contents')
 
 @if (session('message'))
@@ -14,7 +10,11 @@
 </div>
 @endif
 
-<div class="table-responive">
+@can('crear talla')
+<a class="btn btn-success btn-sm float-right" href="{{url('/tallas/create')}}">Nuevo</a>
+@endcan
+
+<div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
             <tr class="text-center">

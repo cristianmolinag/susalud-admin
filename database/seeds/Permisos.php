@@ -36,12 +36,11 @@ class Permisos extends Seeder
 
         // Creacion de permissos
         
-
         Permission::create(['name' => 'ver colores']);
         Permission::create(['name' => 'ver color']);
-        Permission::create(['name' => 'crear colores']);
-        Permission::create(['name' => 'editar colores']);
-        Permission::create(['name' => 'eliminar colores']);
+        Permission::create(['name' => 'crear color']);
+        Permission::create(['name' => 'editar color']);
+        Permission::create(['name' => 'eliminar color']);
 
         Permission::create(['name' => 'ver tallas']);
         Permission::create(['name' => 'ver talla']);

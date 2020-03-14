@@ -2,10 +2,6 @@
 
 @section('title', 'Listado de productos')
 
-@section('url', url('/productos/create'))
-
-@section('url_permiso', 'crear producto')
-
 @section('contents')
 
 @if (session('message'))
@@ -13,6 +9,10 @@
     {{ session('message') }}
 </div>
 @endif
+
+@can('crear producto')
+<a class="btn btn-success btn-sm float-right" href="{{url('/productos/create')}}">Nuevo</a>
+@endcan
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">

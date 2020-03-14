@@ -31,158 +31,158 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('empleados')->group(function () {
 
         Route::get('/', 'EmpleadoController@index')
-            ->middleware('permission: ver empleados')
+            ->middleware('permission:ver empleados')
             ->name('empleados.index');
 
         Route::post('/', 'EmpleadoController@store')
-            ->middleware('permission: crear empleado')
+            ->middleware('permission:crear empleado')
             ->name('empleados.store');
 
         Route::get('/create', 'EmpleadoController@create')
-            ->middleware('permission: crear empleado')
+            ->middleware('permission:crear empleado')
             ->name('empleados.create');
 
         Route::get('/{empleado}', 'EmpleadoController@show')
-            ->middleware('permission: ver empleado')
+            ->middleware('permission:ver empleado')
             ->name('empleados.show');
 
         Route::put('/{empleado}', 'EmpleadoController@update')
-            ->middleware('permission: editar empleado')
+            ->middleware('permission:editar empleado')
             ->name('empleados.update');
 
         Route::delete('/{empleado}', 'EmpleadoController@destroy')
-            ->middleware('permission: eliminar empleado')
+            ->middleware('permission:eliminar empleado')
             ->name('empleados.destroy');
 
         Route::get('/{empleado}/edit', 'EmpleadoController@edit')
-            ->middleware('permission: editar empleado')
+            ->middleware('permission:editar empleado')
             ->name('empleados.edit');
     });
 
     Route::prefix('colores')->group(function () {
 
         Route::get('/', 'ColorController@index')
-            ->middleware('permission: ver colores')
+            ->middleware('permission:ver colores')
             ->name('colores.index');
 
         Route::post('/', 'ColorController@store')
-            ->middleware('permission: crear color')
+            ->middleware('permission:crear color')
             ->name('colores.store');
 
         Route::get('/create', 'ColorController@create')
-            ->middleware('permission: crear color')
+            ->middleware('permission:crear color')
             ->name('colores.create');
 
         Route::put('/{color}', 'ColorController@update')
-            ->middleware('permission: editar color')
+            ->middleware('permission:editar color')
             ->name('colores.update');
 
         Route::delete('/{color}', 'ColorController@destroy')
-            ->middleware('permission: eliminar color')
+            ->middleware('permission:eliminar color')
             ->name('colores.destroy');
 
         Route::get('/{color}/edit', 'ColorController@edit')
-            ->middleware('permission: editar color')
+            ->middleware('permission:editar color')
             ->name('colores.edit');
     });
 
     Route::prefix('materiales')->group(function () {
 
         Route::get('/', 'MaterialController@index')
-            ->middleware('permission: ver materiales')
+            ->middleware('permission:ver materiales')
             ->name('materiales.index');
 
         Route::post('/', 'MaterialController@store')
-            ->middleware('permission: crear material')
+            ->middleware('permission:crear material')
             ->name('materiales.store');
 
         Route::get('/create', 'MaterialController@create')
-            ->middleware('permission: crear material')
+            ->middleware('permission:crear material')
             ->name('materiales.create');
 
         Route::put('/{material}', 'MaterialController@update')
-            ->middleware('permission: editar material')
+            ->middleware('permission:editar material')
             ->name('materiales.update');
 
         Route::delete('/{material}', 'MaterialController@destroy')
-            ->middleware('permission: eliminar material')
+            ->middleware('permission:eliminar material')
             ->name('materiales.destroy');
 
-        Route::get('/{material}/edit', 'MaterialController@edit')
-            ->middleware('permission: editar material')
+        Route::get('/{material}/edit','MaterialController@edit')
+            ->middleware('permission:editar material')
             ->name('materiales.edit');
     });
 
     Route::prefix('tallas')->group(function () {
 
         Route::get('/', 'TallaController@index')
-            ->middleware('permission: ver tallas')
+            ->middleware('permission:ver tallas')
             ->name('tallas.index');
 
         Route::post('/', 'TallaController@store')
-            ->middleware('permission: crear talla')
+            ->middleware('permission:crear talla')
             ->name('tallas.store');
 
         Route::get('/create', 'TallaController@create')
-            ->middleware('permission: crear talla')
+            ->middleware('permission:crear talla')
             ->name('tallas.create');
 
         Route::put('/{talla}', 'TallaController@update')
-            ->middleware('permission: editar talla')
+            ->middleware('permission:editar talla')
             ->name('tallas.update');
 
         Route::delete('/{talla}', 'TallaController@destroy')
-            ->middleware('permission: eliminar talla')
+            ->middleware('permission:eliminar talla')
             ->name('tallas.destroy');
 
         Route::get('/{talla}/edit', 'TallaController@edit')
-            ->middleware('permission: editar talla')
+            ->middleware('permission:editar talla')
             ->name('tallas.edit');
     });
 
     Route::prefix('productos')->group(function () {
 
         Route::get('/', 'ProductoController@index')
-            ->middleware('permission: ver productos')
+            ->middleware('permission:ver productos')
             ->name('productos.index');
 
         Route::post('/', 'ProductoController@store')
-            ->middleware('permission: crear producto')
+            ->middleware('permission:crear producto')
             ->name('productos.store');
 
         Route::get('/create', 'ProductoController@create')
-            ->middleware('permission: crear producto')
+            ->middleware('permission:crear producto')
             ->name('productos.create');
 
         Route::put('/{producto}', 'ProductoController@update')
-            ->middleware('permission: editar producto')
+            ->middleware('permission:editar producto')
             ->name('productos.update');
 
         Route::delete('/{producto}', 'ProductoController@destroy')
-            ->middleware('permission: eliminar producto')
+            ->middleware('permission:eliminar producto')
             ->name('productos.destroy');
 
         Route::get('/{producto}/edit', 'ProductoController@edit')
-            ->middleware('permission: editar producto')
+            ->middleware('permission:editar producto')
             ->name('productos.edit');
     });
 
     Route::prefix('clientes')->group(function () {
 
         Route::get('/', 'ClienteController@index')
-            ->middleware('permission: ver clientes')
+            ->middleware('permission:ver clientes')
             ->name('clientes.index');
 
         Route::get('/{cliente}', 'ClienteController@show')
-            ->middleware('permission: ver cliente')
+            ->middleware('permission:ver cliente')
             ->name('clientes.show');
 
         Route::put('/{cliente}', 'ClienteController@update')
-            ->middleware('permission: editar cliente')
+            ->middleware('permission:editar cliente')
             ->name('clientes.update');
 
         Route::post('/{id}/reset_pass', 'ClienteController@reset_pass')
-            ->middleware('permission: editar cliente')
+            ->middleware('permission:editar cliente')
             ->name('clientes.reset_pass');
 
     });
@@ -190,19 +190,19 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('pedidos')->group(function () {
 
         Route::get('/{val}', 'PedidoController@index')
-            ->middleware('permission: ver pedidos')
+            ->middleware('permission:ver pedidos')
             ->name('pedidos.index');
 
         Route::get('/{pedido}/show', 'PedidoController@show')
-            ->middleware('permission: ver pedido')
+            ->middleware('permission:ver pedido')
             ->name('pedidos.show');
 
         Route::get('/{pedido}/edit', 'PedidoController@edit')
-            ->middleware('permission: editar pedido')
+            ->middleware('permission:editar pedido')
             ->name('pedidos.edit');
 
         Route::put('/{pedido}', 'PedidoController@update')
-            ->middleware('permission: editar pedido')
+            ->middleware('permission:editar pedido')
             ->name('pedidos.update');
 
     });
@@ -210,81 +210,81 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('proveedores')->group(function () {
 
         Route::get('/', 'ProveedorController@index')
-        ->middleware('permission: ver proveedores')
+        ->middleware('permission:ver proveedores')
         ->name('proveedores.index');
 
         Route::post('/', 'ProveedorController@store')
-        ->middleware('permission: crear proveedor')
+        ->middleware('permission:crear proveedor')
         ->name('proveedores.store');
 
         Route::get('/create', 'ProveedorController@create')
-        ->middleware('permission: crear proveedor')
+        ->middleware('permission:crear proveedor')
         ->name('proveedores.create');
 
         Route::put('/{proveedor}', 'ProveedorController@update')
-        ->middleware('permission: editar proveedor')
+        ->middleware('permission:editar proveedor')
         ->name('proveedores.update');
 
         Route::delete('/{proveedor}', 'ProveedorController@destroy')
-        ->middleware('permission: eliminar proveedor')
+        ->middleware('permission:eliminar proveedor')
         ->name('proveedores.destroy');
 
         Route::get('/{proveedor}/edit', 'ProveedorController@edit')
-        ->middleware('permission: editar proveedor')
+        ->middleware('permission:editar proveedor')
         ->name('proveedores.edit');
     });
 
     Route::prefix('cargos')->group(function () {
 
         Route::get('/', 'CargoController@index')
-        ->middleware('permission: ver cargos')
+        ->middleware('permission:ver cargos')
         ->name('cargos.index');
 
         Route::post('/', 'CargoController@store')
-        ->middleware('permission: crear cargo')
+        ->middleware('permission:crear cargo')
         ->name('cargos.store');
 
         Route::get('/create', 'CargoController@create')
-        ->middleware('permission: crear cargo')
+        ->middleware('permission:crear cargo')
         ->name('cargos.create');
 
         Route::put('/{cargo}', 'CargoController@update')
-        ->middleware('permission: editar cargo')
+        ->middleware('permission:editar cargo')
         ->name('cargos.update');
 
-        Route::delete('/{cargo}', 'CargoController@destroy')
+        Route::delete('/{cargo}','CargoController@destroy')
         ->middleware('permission: eliminar cargo')
         ->name('cargos.destroy');
 
         Route::get('/{cargo}/edit', 'CargoController@edit')
-        ->middleware('permission: editar cargo')
+        ->middleware('permission:editar cargo')
         ->name('cargos.edit');
     });
 
     Route::prefix('insumos')->group(function () {
 
         Route::get('/', 'InsumoController@index')
-        ->middleware('permission: ver insumos')
+        ->middleware('permission:ver insumos')
         ->name('insumos.index');
 
         Route::post('/', 'InsumoController@store')
-        ->middleware('permission: crear insumo')
+        ->middleware('permission:crear insumo')
         ->name('insumos.store');
 
         Route::get('/create', 'InsumoController@create')
-        ->middleware('permission: crear insumo')
+        ->middleware('permission:crear insumo')
         ->name('insumos.create');
 
         Route::put('/{insumo}', 'InsumoController@update')
-        ->middleware('permission: editar insumo')
+        ->middleware('permission:editar insumo')
         ->name('insumos.update');
 
         Route::delete('/{insumo}', 'InsumoController@destroy')
-        ->middleware('permission: eliminar insumo')
+        ->middleware('permission:eliminar insumo')
         ->name('insumos.destroy');
 
         Route::get('/{insumo}/edit', 'InsumoController@edit')
-        ->middleware('permission: editar insumo')
+        ->middleware('permission:editar insumo')
         ->name('insumos.edit');
     });
 });

@@ -7,9 +7,6 @@
         <div class="card">
             <div class="card-header">
                 <span class="align-middle text-monospace">@yield('title')</span>
-                @can("@yield('url_permiso')")
-                <a class="btn btn-success btn-sm float-right" href="@yield('url')">Nuevo</a>
-                @endcan
             </div>
             <div class="card-body">
                 @yield('contents')

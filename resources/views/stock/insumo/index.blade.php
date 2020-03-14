@@ -14,6 +14,10 @@
 </div>
 @endif
 
+@can('crear insumo')
+<a class="btn btn-success btn-sm float-right" href="{{url('/insumos/create')}}">Nuevo</a>
+@endcan
+
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
