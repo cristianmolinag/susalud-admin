@@ -84,8 +84,7 @@
                         <a class="dropdown-item" href="/insumos">Insumos</a>
                         @endcan
                         @can('ver bodegas')
-                        <a class="dropdown-item" href="#">Bodega de insumos</a>
-                        <a class="dropdown-item" href="#">Bodega de prod terminado</a>
+                        <a class="dropdown-item" href="/bodegas">Bodega de insumos</a>
                         @endcan
                     </div>
                 </li>

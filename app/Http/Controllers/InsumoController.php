@@ -40,7 +40,7 @@ class InsumoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:entrada_insumo',
+            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:insumo',
             'medida' => 'required',
             'proveedor_id' => 'required',
         ]);
@@ -88,7 +88,7 @@ class InsumoController extends Controller
     public function update(Request $request, Insumo $insumo)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:entrada_insumo,nombre,' . $insumo->id,
+            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:insumo,nombre,' . $insumo->id,
             'medida' => 'required',
             'proveedor_id' => 'required',
         ]);

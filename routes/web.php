@@ -287,4 +287,31 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:editar insumo')
         ->name('insumos.edit');
     });
+
+    Route::prefix('bodegas')->group(function () {
+
+        Route::get('/', 'BodegaController@index')
+        ->middleware('permission:ver bodegas')
+        ->name('bodegas.index');
+
+        Route::post('/', 'BodegaController@store')
+        ->middleware('permission:crear bodega')
+        ->name('bodegas.store');
+
+        Route::get('/create', 'BodegaController@create')
+        ->middleware('permission:crear bodega')
+        ->name('bodegas.create');
+
+        Route::put('/{bodega}', 'BodegaController@update')
+        ->middleware('permission:editar bodega')
+        ->name('bodegas.update');
+
+        Route::delete('/{bodega}', 'BodegaController@destroy')
+        ->middleware('permission:eliminar bodega')
+        ->name('bodegas.destroy');
+
+        Route::get('/{bodega}/edit', 'BodegaController@edit')
+        ->middleware('permission:editar bodega')
+        ->name('bodegas.edit');
+    });
 });

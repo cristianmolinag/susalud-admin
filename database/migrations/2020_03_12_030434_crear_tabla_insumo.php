@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaEntradaInsumo extends Migration
+class CrearTablaInsumo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CrearTablaEntradaInsumo extends Migration
      */
     public function up()
     {
-        Schema::create('entrada_insumo', function (Blueprint $table) {
+        Schema::create('insumo', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->enum('medida', ['cm', 'm', 'und']);
@@ -30,6 +30,6 @@ class CrearTablaEntradaInsumo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entrada_insumo');
+        Schema::dropIfExists('insumo');
     }
 }

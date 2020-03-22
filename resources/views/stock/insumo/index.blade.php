@@ -2,10 +2,6 @@
 
 @section('title', 'Listado de insumos')
 
-@section('url', url('/insumos/create'))
-
-@section('url_permiso', 'crear insumo')
-
 @section('contents')
 
 @if (session('message'))
