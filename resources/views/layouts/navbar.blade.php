@@ -48,7 +48,6 @@
                         @can('ver empleados')
                         <a class="dropdown-item" href="/empleados">Empleados</a>
                         @endcan
-                        {{-- <a class="dropdown-item" href="#">Permisos</a> --}}
                         @can('ver clientes')
                         <a class="dropdown-item" href="/clientes">Clientes</a>
                         @endcan
@@ -94,8 +93,8 @@
                         Producción
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @can('ver producciones')
-                        <a class="dropdown-item" href="#">Órdenes de producción</a>
+                        @can('ver procesos')
+                        <a class="dropdown-item" href="/procesos">Procesos</a>
                         @endcan
                         @can('ver rutas')
                         <a class="dropdown-item" href="#">Rutas de trabajo</a>

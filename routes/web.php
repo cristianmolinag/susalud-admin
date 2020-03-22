@@ -314,4 +314,31 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:editar bodega')
         ->name('bodegas.edit');
     });
+
+    Route::prefix('procesos')->group(function () {
+
+        Route::get('/', 'ProcesoController@index')
+        ->middleware('permission:ver procesos')
+        ->name('procesos.index');
+
+        Route::post('/', 'ProcesoController@store')
+        ->middleware('permission:crear proceso')
+        ->name('procesos.store');
+
+        Route::get('/create', 'ProcesoController@create')
+        ->middleware('permission:crear proceso')
+        ->name('procesos.create');
+
+        Route::put('/{proceso}', 'ProcesoController@update')
+        ->middleware('permission:editar proceso')
+        ->name('procesos.update');
+
+        Route::delete('/{proceso}', 'ProcesoController@destroy')
+        ->middleware('permission:eliminar proceso')
+        ->name('procesos.destroy');
+
+        Route::get('/{proceso}/edit', 'ProcesoController@edit')
+        ->middleware('permission:editar proceso')
+        ->name('procesos.edit');
+    });
 });
