@@ -11,7 +11,7 @@
 @endif
 
 @can('crear bodega')
-<a class="btn btn-success btn-sm float-right" href="{{url('/bodegas/create')}}">Nuevo</a>
+<a class="btn btn-success btn-sm float-right" href="{{url('/bodegas/create')}}">Agregar insumo</a>
 @endcan
 
 <div class="table-responsive">
@@ -33,10 +33,14 @@
                 <td class="align-middle text-center"> {{ $index +1 }} </td>
                 <td class="align-middle text-center"> {{ $bodega->insumo->nombre }} </td>
                 <td class="align-middle text-center">
-                    @if ($bodega->cantidad <= 3) <img src="/imagenes/alert-circle.svg"
-                        alt="Alerta de inventario deficiente" title="Inventario deficiente" style="width: 15px; margin-bottom: 5px;">
-                        @endif
-                        {{ $bodega->cantidad }}
+                    @if (
+                        ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'm' ) ||
+                        ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'und' ) ||
+                        ($bodega->cantidad <= 3000 && $bodega->insumo->medida == 'cm' )
+                    )
+                    <img src="/imagenes/alert-circle.svg" alt="Alerta de inventario deficiente" title="Inventario deficiente" style="width: 15px; margin-bottom: 5px;">
+                    @endif
+                    {{ $bodega->cantidad }}
                 </td>
                 <td class="align-middle text-center"> {{ $bodega->insumo->medida }} </td>
                 <td class="align-middle text-center"> {{ $bodega->insumo->proveedor->nombre }} </td>

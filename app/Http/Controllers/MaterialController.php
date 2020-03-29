@@ -39,7 +39,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:material',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:material',
         ]);
 
         Material::create([
@@ -82,7 +82,7 @@ class MaterialController extends Controller
     public function update(Request $request, Material $material)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:material,nombre,' . $material->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:material,nombre,' . $material->id,
         ]);
 
         $material->fill($request->All());

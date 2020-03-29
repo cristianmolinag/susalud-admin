@@ -7,6 +7,6 @@ class Proveedor extends Model
     protected $table = 'proveedor';
 
     protected $fillable = [
-        'nit', 'nombre', 'direccion', 'telefono', 'estado'
+        'documento', 'nombre', 'direccion', 'telefono', 'estado'
     ];
 }

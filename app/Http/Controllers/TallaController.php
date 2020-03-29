@@ -39,7 +39,7 @@ class TallaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:talla',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:talla',
         ]);
 
         Talla::create([
@@ -82,7 +82,7 @@ class TallaController extends Controller
     public function update(Request $request, Talla $talla)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:talla,nombre,' . $talla->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:talla,nombre,' . $talla->id,
         ]);
 
         $talla->fill($request->All());

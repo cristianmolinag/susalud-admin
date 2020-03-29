@@ -38,7 +38,7 @@ class CargoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:cargo',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:cargo',
         ]);
 
         Cargo::create([
@@ -80,7 +80,7 @@ class CargoController extends Controller
     public function update(Request $request, Cargo $cargo)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:cargo,nombre,' . $cargo->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:cargo,nombre,' . $cargo->id,
         ]);
 
         $cargo->fill($request->All());

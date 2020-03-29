@@ -19,7 +19,7 @@
         <thead>
             <tr class="text-center">
                 <th>#</th>
-                <th>Nit</th>
+                <th>Documento</th>
                 <th>Nombre</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
@@ -32,7 +32,7 @@
             @foreach ($proveedores as $index => $proveedor)
             <tr class="{{ !$proveedor->estado ? 'text-muted' : ''}}">
                 <td> {{ $index +1 }} </td>
-                <td class="align-middle text-center"> {{ $proveedor->nit }} </td>
+                <td class="align-middle text-center"> {{ $proveedor->documento }} </td>
                 <td class="align-middle text-center"> {{ $proveedor->nombre }} </td>
                 <td class="align-middle text-center"> {{ $proveedor->direccion }} </td>
                 <td class="align-middle text-center"> {{ $proveedor->telefono }} </td>

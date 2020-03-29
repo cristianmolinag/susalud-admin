@@ -12,7 +12,7 @@
   <div class="form-group">
     <label for="nombre">Nombre: </label>
     <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-      placeholder="Ingrese el nombre" value="{{ $color->nombre }}" autofocus>
+      placeholder="Ingrese el nombre" value="{{ old('nombre', $color->nombre) }}" autofocus>
     @error('nombre')
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror

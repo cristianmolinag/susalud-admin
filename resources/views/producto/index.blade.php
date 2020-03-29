@@ -31,15 +31,15 @@
         <tbody class="text-center">
             @foreach ($productos as $index => $producto)
             <tr class="{{ !$producto->estado ? 'text-muted' : ''}}">
-                <td> {{ $index +1 }} </td>
+                <td class="align-middle text-center"> {{ $index +1 }} </td>
                 <td class="align-middle text-center">
                     <img src=" {{ URL::asset('imagenes/productos/'.$producto->imagen) }}" alt="Miniatura" height="30px">
                 </td>
-                <td class="align-middle text-center"> {{ $producto->nombre }} </td>
-                <td class="align-middle text-center"> {{ $producto->material->nombre }} </td>
-                <td class="align-middle text-center"> {{ $producto->estado ? 'Activo' : 'inactivo' }} </td>
-                <td class="align-middle text-center"> ${{ number_format($producto->precio, 2, '.', ',') }} </td>
-                <td class="align-middle text-center"> {{ $producto->created_at->diffForHumans() }} </td>
+                <td class="align-middle"> {{ $producto->nombre }} </td>
+                <td class="align-middle"> {{ $producto->material->nombre }} </td>
+                <td class="align-middle"> {{ $producto->estado ? 'Activo' : 'inactivo' }} </td>
+                <td class="align-middle"> ${{ number_format($producto->precio, 2, '.', ',') }} </td>
+                <td class="align-middle"> {{ $producto->created_at->diffForHumans() }} </td>
                 <td class="align-middle text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         @can('editar producto')

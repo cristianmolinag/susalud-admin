@@ -38,15 +38,15 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nit' => 'required',
+            'documento' => 'required|numeric|unique:proveedor',
             'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor',
             'direccion' => 'required',
-            'telefono' => 'required',
+            'telefono' => 'required|between:7,10',
         ]);
 
         Proveedor::create([
             'id' => $request['id'],
-            'nit' => $request['nit'],
+            'documento' => $request['documento'],
             'nombre' => $request['nombre'],
             'direccion' => $request['direccion'],
             'telefono' => $request['telefono'],
@@ -87,7 +87,7 @@ class ProveedorController extends Controller
     public function update(Request $request, Proveedor $proveedor)
     {
         $request->validate([
-            'nit' => 'required',
+            'documento' => 'required|numeric|unique:proveedor,documento,' . $proveedor->id,
             'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor,nombre,' . $proveedor->id,
             'direccion' => 'required',
             'telefono' => 'required',

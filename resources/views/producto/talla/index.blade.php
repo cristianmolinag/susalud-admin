@@ -29,11 +29,10 @@
             @foreach ($tallas as $index => $talla)
             <tr class="{{ !$talla->estado ? 'text-muted' : ''}}">
                 <td class="align-middle text-center"> {{ $index +1 }} </td>
-                <td class="align-middle text-center"> {{ $talla->nombre }} </td>
-                <td class="align-middle text-center"> {{ $talla->estado ? 'Activo' : 'inactivo' }} </td>
-                <td class="align-middle text-center"> {{ $talla->created_at->diffForHumans() }} </td>
+                <td class="align-middle"> {{ $talla->nombre }} </td>
+                <td class="align-middle"> {{ $talla->estado ? 'Activo' : 'inactivo' }} </td>
+                <td class="align-middle"> {{ $talla->created_at->diffForHumans() }} </td>
                 <td class="align-middle text-center">
-
                     <div class="btn-group" role="group" aria-label="Basic example">
                         @can('editar talla')
                         <a href="{{ route('tallas.edit', $talla->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>

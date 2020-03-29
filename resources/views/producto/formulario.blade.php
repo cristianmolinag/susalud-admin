@@ -14,7 +14,7 @@
       <div class="form-group">
         <label for="nombre">Nombre: </label>
         <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-          placeholder="Ingrese el nombre del producto" value="{{ $producto->nombre }}">
+          placeholder="Ingrese el nombre del producto" value="{{ old('nombre', $producto->nombre) }}">
         @error('nombre')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>
         @enderror
@@ -41,8 +41,8 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="precio">Precio: </label>
-        <input type="text" class="form-control @error('precio') is-invalid @enderror" name="precio"
-          placeholder="Ingrese el precio del producto" value="{{ $producto->precio }}">
+        <input type="number" class="form-control @error('precio') is-invalid @enderror" name="precio"
+          placeholder="Ingrese el precio del producto" value="{{ old('precio', $producto->precio) }}">
         @error('precio')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>
         @enderror

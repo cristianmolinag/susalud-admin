@@ -15,7 +15,7 @@ class CrearTablaProveedor extends Migration
     {
         Schema::create('proveedor', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('nit');
+            $table->bigInteger('documento');
             $table->string('nombre');
             $table->string('direccion');
             $table->bigInteger('telefono');

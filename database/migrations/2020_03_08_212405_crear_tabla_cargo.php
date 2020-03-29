@@ -16,6 +16,7 @@ class CrearTablaCargo extends Migration
         Schema::create('cargo', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }

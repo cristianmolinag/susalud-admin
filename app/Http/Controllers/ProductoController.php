@@ -53,7 +53,7 @@ class ProductoController extends Controller
             'colores' => 'required',
             'tallas' => 'required',
             'material_id' => 'required',
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:producto',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:producto',
             'precio' => 'required|numeric',
         ]);
 
@@ -121,7 +121,7 @@ class ProductoController extends Controller
             'colores' => 'required',
             'tallas' => 'required',
             'material_id' => 'required',
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:color,nombre,' . $producto->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:color,nombre,' . $producto->id,
             'precio' => 'required|numeric',
         ]);
 
@@ -152,6 +152,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
+        $producto->colores()->detach();
+        $producto->tallas()->detach();
         $producto->delete();
         if ($producto->imagen != 'imagenblanco.jpg') {
             File::delete(public_path() . '/imagenes/productos/' . $producto->imagen);
