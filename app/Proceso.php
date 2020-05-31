@@ -11,4 +11,9 @@ class Proceso extends Model
     protected $fillable = [
         'nombre', 'estado',
     ];
+
+    public function fichas()
+    {
+        return $this->belongsToMany(Ficha::class);
+    }
 }

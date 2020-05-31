@@ -99,11 +99,11 @@ class Permisos extends Seeder
         Permission::create(['name' => 'editar proceso']);
         Permission::create(['name' => 'eliminar proceso']);
 
-        // Permission::create(['name' => 'ver rutas']);
-        // Permission::create(['name' => 'ver ruta']);
-        // Permission::create(['name' => 'crear ruta']);
-        // Permission::create(['name' => 'editar ruta']);
-        // Permission::create(['name' => 'eliminar ruta']);
+        Permission::create(['name' => 'ver fichas']);
+        Permission::create(['name' => 'ver ficha']);
+        Permission::create(['name' => 'crear ficha']);
+        Permission::create(['name' => 'editar ficha']);
+        Permission::create(['name' => 'eliminar ficha']);
 
         Permission::create(['name' => 'ver cargos']);
         Permission::create(['name' => 'ver cargo']);

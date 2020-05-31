@@ -341,4 +341,31 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:editar proceso')
         ->name('procesos.edit');
     });
+
+    Route::prefix('fichas')->group(function () {
+
+        Route::get('/', 'FichaController@index')
+        ->middleware('permission:ver fichas')
+        ->name('fichas.index');
+
+        Route::post('/', 'FichaController@store')
+        ->middleware('permission:crear ficha')
+        ->name('fichas.store');
+
+        Route::get('/create', 'FichaController@create')
+        ->middleware('permission:crear ficha')
+        ->name('fichas.create');
+
+        Route::put('/{ficha}', 'FichaController@update')
+        ->middleware('permission:editar ficha')
+        ->name('fichas.update');
+
+        Route::delete('/{ficha}', 'FichaController@destroy')
+        ->middleware('permission:eliminar ficha')
+        ->name('fichas.destroy');
+
+        Route::get('/{ficha}/edit', 'FichaController@edit')
+        ->middleware('permission:editar ficha')
+        ->name('fichas.edit');
+    });
 });

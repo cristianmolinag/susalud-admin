@@ -11,7 +11,7 @@
 @endif
 
 @can('crear empleado')
-<a class="btn btn-success btn-sm float-right" href="{{url('/empleados/create')}}">Nuevo</a>
+<a class="btn btn-success btn-sm float-right" href="{{url('/empleados/create')}}">Crear Contrato</a>
 @endcan
 
 <div class="table-responsive">

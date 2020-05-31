@@ -29,7 +29,6 @@
                         @can('ver materiales')
                         <a class="dropdown-item" href="/materiales">Materiales</a>
                         @endcan
-
                         <div class="dropdown-divider"></div>
                         @can('ver productos')
                         <a class="dropdown-item" href="/productos">Productos</a>
@@ -93,11 +92,13 @@
                         Producción
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Ordenes de producción</a>
+                        <div class="dropdown-divider"></div>
                         @can('ver procesos')
                         <a class="dropdown-item" href="/procesos">Procesos</a>
                         @endcan
+                        <a class="dropdown-item" href="/fichas">Fichas técnicas</a>
                         @can('ver rutas')
-                        <a class="dropdown-item" href="#">Rutas de trabajo</a>
                         @endcan
                     </div>
                 </li>
