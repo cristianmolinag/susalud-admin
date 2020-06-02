@@ -22,6 +22,7 @@ class CrearTablaFichaProceso extends Migration
             $table->unsignedBigInteger('proceso_id');
             $table->foreign('proceso_id')->references('id')->on('proceso');
 
+            $table->integer('orden');
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class CrearTablaFichaInsumo extends Migration
             $table->unsignedBigInteger('insumo_id');
             $table->foreign('insumo_id')->references('id')->on('insumo');
 
+            $table->integer('cantidad');
             $table->timestamps();
         });
     }

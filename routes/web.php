@@ -24,6 +24,8 @@ Route::prefix('app/')->group(function () {
     Route::post('crear_pedido', 'AppController@crear_pedido');
 });
 
+Route::get('fichas/producto/{id}', 'FichaController@getDetallesProducto');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
@@ -367,5 +369,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{ficha}/edit', 'FichaController@edit')
         ->middleware('permission:editar ficha')
         ->name('fichas.edit');
+
     });
 });

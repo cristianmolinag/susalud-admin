@@ -20,7 +20,7 @@ class AppController extends Controller
             'nombres' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'apellidos' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'correo' => 'required|email|unique:cliente',
-            'password' => 'required',
+            'password' => 'required|min:8|max:50',
             'documento' => 'required',
             'direccion' => 'required',
             'cod_postal' => 'required',
