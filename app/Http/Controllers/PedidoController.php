@@ -16,7 +16,7 @@ class PedidoController extends Controller
     {
         if($val == 'activo'){
             $pedidos = Pedido::with('productos', 'cliente')->where('estado', '!=', 'Facturado' )
-            ->where('estado', '!=', 'Cancelado' )->paginate(10);    
+            ->where('estado', '!=', 'Cancelado' )->paginate(10);
         }
         else{
             $pedidos = Pedido::with('productos', 'cliente')->paginate(10);
@@ -45,7 +45,6 @@ class PedidoController extends Controller
     public function edit(Pedido $pedido)
     {
         $pedido = $pedido->with('productos', 'cliente')->first();
-        return $pedido;
         return view('pedido.formulario', compact('pedido'));
     }
 
@@ -58,7 +57,14 @@ class PedidoController extends Controller
      */
     public function update(Request $request, Pedido $pedido)
     {
-        
+        $request->validate([
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:material,nombre,' . $material->id,
+        ]);
+
+        $material->fill($request->All());
+        $material->save();
+
+        return redirect()->route('materiales.index')->with('message', 'Registro editado con éxito!');
     }
 
     /**
