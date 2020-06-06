@@ -97,7 +97,9 @@
                         @can('ver procesos')
                         <a class="dropdown-item" href="/procesos">Procesos</a>
                         @endcan
+                        @can('ver fichas')
                         <a class="dropdown-item" href="/fichas">Fichas técnicas</a>
+                        @endcan
                         @can('ver rutas')
                         @endcan
                     </div>

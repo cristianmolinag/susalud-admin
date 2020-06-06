@@ -35,7 +35,7 @@ class Permisos extends Seeder
          ]);
 
         // Creacion de permissos
-        
+
         Permission::create(['name' => 'ver colores']);
         Permission::create(['name' => 'ver color']);
         Permission::create(['name' => 'crear color']);
@@ -116,7 +116,13 @@ class Permisos extends Seeder
         Permission::create(['name' => 'crear contrato']);
         Permission::create(['name' => 'editar contrato']);
         Permission::create(['name' => 'eliminar contrato']);
-        
+
+        Permission::create(['name' => 'ver producciones']);
+        Permission::create(['name' => 'ver produccion']);
+        Permission::create(['name' => 'crear produccion']);
+        Permission::create(['name' => 'editar produccion']);
+        Permission::create(['name' => 'eliminar produccion']);
+
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'crear ']);
@@ -126,9 +132,24 @@ class Permisos extends Seeder
         // Creación de roles
         $rol_admin = Role::create(['name' => 'Administrador']);
         $rol_operador = Role::create(['name' => 'Operador']);
+        $rol_gerente = Role::create(['name' => 'Gerente']);
 
         // Asignación de permisos a roles
         $rol_admin->givePermissionTo(Permission::all());
         $admin->assignRole($rol_admin->name);
+
+        //Permisos de Operador
+        $rol_operador->givePermissionTo('ver bodegas');
+        $rol_operador->givePermissionTo('ver bodega');
+        $rol_operador->givePermissionTo('ver producciones');
+        $rol_operador->givePermissionTo('ver produccion');
+        $rol_operador->givePermissionTo('ver fichas');
+        $rol_operador->givePermissionTo('ver ficha');
+
+        //Permisos de Gerente
+        $rol_gerente->givePermissionTo('ver bodega');
+        $rol_gerente->givePermissionTo('ver bodegas');
+        $rol_gerente->givePermissionTo('ver pedidos');
+        $rol_gerente->givePermissionTo('ver pedido');
     }
 }
