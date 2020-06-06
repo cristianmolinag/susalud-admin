@@ -75,8 +75,9 @@ class EmpleadoController extends Controller
     {
         if ($empleado->id === Auth::id()) {
             $roles = Role::select('name')->get();
-            $empleado = $empleado->with('roles')->first();
-            return view('empleado.formulario', compact('empleado', 'roles'));
+            $cargos = Cargo::select('id', 'nombre')->get();
+            $empleado = $empleado->with('cargos', 'roles')->first();
+            return view('empleado.formulario', compact('empleado', 'roles', 'cargos'));
         }
         abort(403, 'Unauthorized action.');
     }

@@ -61,7 +61,10 @@
   </div>
 
 </div>
-
-<a href="{{ url('pedidos') }}" class="btn btn-danger float-right">Atrás</a>
+@if ($pedido->estado == 'Activo')
+    <a href="{{ url('pedidos/activos') }}" class="btn btn-danger float-right">Atrás</a>
+@else
+    <a href="{{ url('pedidos/historico') }}" class="btn btn-danger float-right">Atrás</a>
+@endif
 
 @endsection

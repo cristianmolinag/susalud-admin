@@ -16,7 +16,6 @@ class BodegaController extends Controller
     public function index()
     {
         $bodegas = Bodega::with('insumo')->orderBy('cantidad', 'asc')->paginate(10);
-        // return $bodegas;
         return view('stock.bodega.index', compact('bodegas'));
     }
 
