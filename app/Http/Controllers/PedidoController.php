@@ -58,13 +58,13 @@ class PedidoController extends Controller
     public function update(Request $request, Pedido $pedido)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/u|max:50|unique:material,nombre,' . $material->id,
+            'estado' => 'required',
         ]);
 
-        $material->fill($request->All());
-        $material->save();
+        $pedido->fill($request->All());
+        $pedido->save();
 
-        return redirect()->route('materiales.index')->with('message', 'Registro editado con éxito!');
+        return redirect()->route('pedido.index')->with('message', 'Registro editado con éxito!');
     }
 
     /**
