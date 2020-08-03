@@ -1,57 +1,44 @@
 @extends('layouts.contindex')
 
 @section('title', 'Listado de tallas')
-
+@section('crear talla', 'true')
 @section('contents')
-
-@if (session('message'))
-<div class="alert alert-success">
-    {{ session('message') }}
-</div>
-@endif
-
-@can('crear talla')
-<a class="btn btn-success btn-sm float-right" href="{{url('/tallas/create')}}">Nuevo</a>
-@endcan
-
-<div class="table-responsive">
-    <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
             <tr class="text-center">
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Estado</th>
                 <th>Creado</th>
-                <th>Acciones</th>
+                <th style="width: 15%"> Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($tallas as $index => $talla)
-            <tr class="{{ !$talla->estado ? 'text-muted' : ''}}">
-                <td class="align-middle text-center"> {{ $index +1 }} </td>
-                <td class="align-middle"> {{ $talla->nombre }} </td>
-                <td class="align-middle"> {{ $talla->estado ? 'Activo' : 'inactivo' }} </td>
-                <td class="align-middle"> {{ $talla->created_at->diffForHumans() }} </td>
-                <td class="align-middle text-center">
-                    <div class="btn-group" role="group" aria-label="Basic example">
+            <tr class="text-center {{ !$talla->estado ? 'text-muted' : ''}}">
+                <td> {{ $index +1 }} </td>
+                <td> {{ $talla->nombre }} </td>
+                <td> {{ $talla->estado ? 'Activo' : 'inactivo' }} </td>
+                <td> {{ $talla->created_at->diffForHumans() }} </td>
+                <td>
+                    <form action="{{ route('tallas.destroy', $talla->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
                         @can('editar talla')
-                        <a href="{{ route('tallas.edit', $talla->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>
+                        <a href="{{ route('tallas.edit', $talla) }}" class="btn btn-link btn-sm" style="padding:0px;">
+                            <i class="material-icons">edit</i>
+                        </a>
                         @endcan
+
                         @can('eliminar talla')
-                        <form action="{{ route('tallas.destroy', $talla->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm m-1"
-                                onclick="return confirm('¿Desea borrar el registro?')">Borrar</button>
-                        </form>
+                        <button type="submit" class="btn btn-link btn-sm"  style="padding:0px;" onclick="return confirm('¿Desea borrar el registro?')">
+                            <i class="material-icons">delete</i>
+                        </button>
                         @endcan
-                    </div>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
-    </table>
-</div>
 <div class="pull-right">
     {{ $tallas->links() }}
 </div>

@@ -1,134 +1,147 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <div class="align-middle text-center">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/imagenes/icon.png" alt="logo" width="23px;">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Productos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @can('ver colores')
-                        <a class="dropdown-item" href="/colores">Colores</a>
-                        @endcan
-                        @can('ver tallas')
-                        <a class="dropdown-item" href="/tallas">Tallas</a>
-                        @endcan
-                        @can('ver materiales')
-                        <a class="dropdown-item" href="/materiales">Materiales</a>
-                        @endcan
-                        <div class="dropdown-divider"></div>
-                        @can('ver productos')
-                        <a class="dropdown-item" href="/productos">Productos</a>
-                        @endcan
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuarios
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @can('ver cargos')
-                        <a class="dropdown-item" href="/cargos">Cargos</a>
-                        @endcan
-                        @can('ver empleados')
-                        <a class="dropdown-item" href="/empleados">Empleados</a>
-                        @endcan
-                        @can('ver clientes')
-                        <a class="dropdown-item" href="/clientes">Clientes</a>
-                        @endcan
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pedidos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @can('ver pedidos')
-                    <a class="dropdown-item" href=" {{route('pedidos.index', 'activos')}} ">Activos</a>
-                        <a class="dropdown-item" href="{{route('pedidos.index', 'historico')}}">Histórico</a>
-                        @endcan
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                @if (request()->is('productos*'))
 
-                        <div class="dropdown-divider"></div>
-                        @can('ver ventas')
-                        <a class="dropdown-item" href="#">Ventas</a>
-                        @endcan
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Stock
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @can('ver proveedores')
-                        <a class="dropdown-item" href="/proveedores">Proveedores</a>
-                        @endcan
-                        @can('ver insumos')
-                        <a class="dropdown-item" href="/insumos">Insumos</a>
-                        @endcan
-                        @can('ver bodegas')
-                        <a class="dropdown-item" href="/bodegas">Bodega de insumos</a>
-                        @endcan
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Producción
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Ordenes de producción</a>
-                        <div class="dropdown-divider"></div>
-                        @can('ver procesos')
-                        <a class="dropdown-item" href="/procesos">Procesos</a>
-                        @endcan
-                        @can('ver fichas')
-                        <a class="dropdown-item" href="/fichas">Fichas técnicas</a>
-                        @endcan
-                        @can('ver rutas')
-                        @endcan
-                    </div>
-                </li>
+                    @can('ver colores')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('productos/colores*') ? 'text-warning' : '' }}" href="{{url('productos/colores/')}}">Colores</a>
+                        </li>
+                    @endcan
+
+                    @can('ver tallas')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('productos/tallas*') ? 'text-warning' : '' }}" href="{{url('productos/tallas/')}}">Tallas</a>
+                        </li>
+                    @endcan
+
+                    @can('ver materiales')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('productos/materiales*') ? 'text-warning' : '' }}" href="{{url('productos/materiales/')}}">Materiales</a>
+                        </li>
+                    @endcan
+
+                    @can('ver productos')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('productos/productos*') ? 'text-warning' : '' }}" href="{{url('productos/productos/')}}">Productos</a>
+                        </li>
+                    @endcan
+
+                @elseif (request()->is('usuarios*'))
+
+                    @can('ver cargos')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('usuarios/cargos*') ? 'text-warning' : '' }}" href="{{url('usuarios/cargos/')}}">Cargos</a>
+                        </li>
+                    @endcan
+
+                    @can('ver empleados')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('usuarios/empleados*') ? 'text-warning' : '' }}" href="{{url('usuarios/empleados/')}}">Empleados</a>
+                        </li>
+                    @endcan
+
+                    @can('ver clientes')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('usuarios/clientes*') ? 'text-warning' : '' }}" href="{{url('usuarios/clientes/')}}">Clientes</a>
+                        </li>
+                    @endcan
+
+                @elseif (request()->is('pedidos*'))
+
+                    @can('ver pedidos')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('pedidos/pedidos/activos') ? 'text-warning' : '' }}" href="{{route('pedidos.index', 'activos')}}">Activos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('pedidos/pedidos/historico') ? 'text-warning' : '' }}" href="{{route('pedidos.index', 'historico')}}">Historico</a>
+                        </li>
+                    @endcan
+
+                    @can('ver ventas')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('pedidos/ventas') ? 'text-warning' : '' }}" href="{{url('pedidos/ventas/')}}">Ventas</a>
+                        </li>
+                    @endcan
+
+                @elseif (request()->is('stock*'))
+
+                    @can('ver proveedores')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('stock/proveedores') ? 'text-warning' : '' }}" href="{{url('stock/proveedores/')}}">proveedores</a>
+                        </li>
+                    @endcan
+
+                    @can('ver insumos')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('stock/insumos') ? 'text-warning' : '' }}" href="{{url('stock/insumos/')}}">insumos</a>
+                        </li>
+                    @endcan
+
+                    @can('ver bodegas')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('stock/bodegas') ? 'text-warning' : '' }}" href="{{url('stock/bodegas/')}}">bodegas</a>
+                        </li>
+                    @endcan
+
+                @elseif (request()->is('produccion*'))
+
+                    @can('ver procesos')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('produccion/procesos') ? 'text-warning' : '' }}" href="{{url('produccion/procesos/')}}">procesos</a>
+                        </li>
+                    @endcan
+
+                    @can('ver ordenes')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('produccion/ordenes') ? 'text-warning' : '' }}" href="#">ordenes</a>
+                        </li>
+                    @endcan
+
+                    @can('ver fichas')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('produccion/fichas') ? 'text-warning' : '' }}" href="{{url('produccion/fichas/')}}">fichas</a>
+                        </li>
+                    @endcan
+
+                    @can('ver rutas')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('produccion/rutas') ? 'text-warning' : '' }}" href="{{url('produccion/rutas/')}}">rutas</a>
+                        </li>
+                    @endcan
+
+                @else
+                <!-- menu vacio -->
+                @endif
             </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @auth
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->nombres }} <span class="caret"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">Cerrar sesión
+            <div class="ml-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <span class="mr-2">{{ Auth::user()->nombres }}</span>
                         </a>
-                        <a class="dropdown-item" href="{{ route('empleados.show', Auth::id()) }}">Perfil</a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" href="{{ route('empleados.show', Auth::id()) }}">Perfil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Cerrar sesión
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                        </form>
-                    </div>
-                </li>
-                @endauth
-            </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>

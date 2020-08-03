@@ -123,11 +123,19 @@ class Permisos extends Seeder
         Permission::create(['name' => 'editar produccion']);
         Permission::create(['name' => 'eliminar produccion']);
 
+        Permission::create(['name' => 'ver ordenes']);
+        Permission::create(['name' => 'ver orden']);
+        Permission::create(['name' => 'crear orden']);
+        Permission::create(['name' => 'editar orden']);
+        Permission::create(['name' => 'eliminar orden']);
+
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'crear ']);
         // Permission::create(['name' => 'editar ']);
         // Permission::create(['name' => 'eliminar ']);
+
+
 
         // Creación de roles
         $rol_admin = Role::create(['name' => 'Administrador']);
