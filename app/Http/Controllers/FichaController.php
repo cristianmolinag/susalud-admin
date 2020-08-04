@@ -90,16 +90,14 @@ class FichaController extends Controller
 
         $fichaNombre = $producto['nombre'] . " - " . $talla['nombre'] . " - " . $color['nombre'] . " - " . $material['nombre'];
 
-        $ficha = new Ficha();
-        $ficha->id = 22;
-        // $ficha = Ficha::create([
-        //     'nombre' => $fichaNombre,
-        //     'descripcion' => $request['descripcion'],
-        //     'producto_id' => $producto['id'],
-        //     'talla_id' => $talla['id'],
-        //     'color_id' => $color['id'],
-        //     'material_id' => $material['id'],
-        // ]);
+        $ficha = Ficha::create([
+            'nombre' => $fichaNombre,
+            'descripcion' => $request['descripcion'],
+            'producto_id' => $producto['id'],
+            'talla_id' => $talla['id'],
+            'color_id' => $color['id'],
+            'material_id' => $material['id'],
+        ]);
 
         $procesos = array_map(function ($proceso) use ($ficha) {
             if ($proceso['orden'] > 0 && $proceso['seleccionado'] == 1) {
