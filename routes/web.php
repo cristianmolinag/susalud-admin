@@ -166,10 +166,6 @@ Route::middleware(['auth'])->group(function () {
                 ->middleware('permission:editar empleado')
                 ->name('empleados.update');
 
-            Route::delete('/{empleado}', 'EmpleadoController@destroy')
-                ->middleware('permission:eliminar empleado')
-                ->name('empleados.destroy');
-
             Route::get('/{empleado}/edit', 'EmpleadoController@edit')
                 ->middleware('permission:editar empleado')
                 ->name('empleados.edit');
@@ -214,7 +210,7 @@ Route::middleware(['auth'])->group(function () {
             ->name('cargos.update');
 
             Route::delete('/{cargo}','CargoController@destroy')
-            ->middleware('permission: eliminar cargo')
+            ->middleware('permission:eliminar cargo')
             ->name('cargos.destroy');
 
             Route::get('/{cargo}/edit', 'CargoController@edit')

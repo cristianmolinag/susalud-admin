@@ -1,21 +1,9 @@
 @extends('layouts.contindex')
-
+@section('crear bodega', 'true')
 @section('title', 'Listado de insumos en bodega')
 
 @section('contents')
 
-@if (session('message'))
-<div class="alert alert-success">
-    {{ session('message') }}
-</div>
-@endif
-
-@can('crear bodega')
-<a class="btn btn-success btn-sm float-right" href="{{url('/bodegas/create')}}">Agregar insumo</a>
-@endcan
-
-<div class="table-responsive">
-    <table class="table table-bordered table-hover table-sm mt-3">
         <thead>
             <tr class="text-center">
                 <th>#</th>
@@ -24,41 +12,43 @@
                 <th>Medida</th>
                 <th>Proveedor</th>
                 <th>Creado</th>
-                <th>Acciones</th>
+                <th style="width: 10%">Acciones</th>
             </tr>
         </thead>
         <tbody class="text-center">
             @foreach ($bodegas as $index => $bodega)
             <tr>
-                <td class="align-middle text-center"> {{ $index +1 }} </td>
-                <td class="align-middle text-center"> {{ $bodega->insumo->nombre }} </td>
-                <td class="align-middle text-center">
+                <td> {{ $index +1 }} </td>
+                <td> {{ $bodega->insumo->nombre }} </td>
+                <td>
                     @if (
                         ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'm' ) ||
                         ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'und' ) ||
                         ($bodega->cantidad <= 3000 && $bodega->insumo->medida == 'cm' )
                     )
-                    <img src="/imagenes/alert-circle.svg" alt="Alerta de inventario deficiente" title="Inventario deficiente" style="width: 15px; margin-bottom: 5px;">
+                    <img src="/imagenes/alert-circle.svg" alt="Alerta de inventario deficiente" title="Inventario deficiente" style="width: 15px; margin-bottom: 3px;">
                     @endif
                     {{ $bodega->cantidad }}
                 </td>
-                <td class="align-middle text-center"> {{ $bodega->insumo->medida }} </td>
-                <td class="align-middle text-center"> {{ $bodega->insumo->proveedor->nombre }} </td>
-                <td class="align-middle text-center"> {{ $bodega->created_at->diffForHumans() }} </td>
-                <td class="align-middle text-center">
-                    <div class="btn-group" role="group" aria-label="Basic example">
+                <td> {{ $bodega->insumo->medida }} </td>
+                <td> {{ $bodega->insumo->proveedor->nombre }} </td>
+                <td> {{ $bodega->created_at->diffForHumans() }} </td>
+                <td>
+                    <form action="{{ route('bodegas.destroy', $bodega->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
                         @can('editar bodega')
-                        <a href="{{ route('bodegas.edit', $bodega->id) }}" class="btn btn-warning btn-sm m-1">Editar</a>
+                        <a href="{{ route('bodegas.edit', $bodega) }}" class="btn btn-link btn-sm" style="padding:0px;">
+                            <i class="material-icons">edit</i>
+                        </a>
                         @endcan
+
                         @can('eliminar bodega')
-                        <form action="{{ route('bodegas.destroy', $bodega->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm m-1"
-                                onclick="return confirm('¿Desea borrar el registro?')">Borrar</button>
-                        </form>
+                        <button type="submit" class="btn btn-link btn-sm"  style="padding:0px;" onclick="return confirm('¿Desea borrar el registro?')">
+                            <i class="material-icons">delete</i>
+                        </button>
                         @endcan
-                    </div>
+                    </form>
                 </td>
             </tr>
             @endforeach

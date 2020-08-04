@@ -45,7 +45,18 @@ class PedidoController extends Controller
     public function edit(Pedido $pedido)
     {
         $pedido = $pedido->with('productos', 'cliente')->first();
-        return view('pedido.formulario', compact('pedido'));
+
+        $estados = array(
+            array('nombre' => "Pendiente de pago"),
+            array('nombre' => "Pago recibido"),
+            array('nombre' => "Producción"),
+            array('nombre' => "Terminado"),
+            array('nombre' => "Facturado"),
+            array('nombre' => "Cancelado")
+        );
+
+        // return $pedido;
+        return view('pedido.formulario', compact('pedido', 'estados'));
     }
 
     /**
@@ -63,8 +74,7 @@ class PedidoController extends Controller
 
         $pedido->fill($request->All());
         $pedido->save();
-
-        return redirect()->route('pedido.index')->with('message', 'Registro editado con éxito!');
+        return redirect()->route('pedidos.index', 'activos')->with('message', 'Registro editado con éxito!');
     }
 
     /**

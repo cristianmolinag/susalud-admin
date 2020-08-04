@@ -1,106 +1,66 @@
-@extends('layouts.app')
+@extends('layouts.contform')
 
-@section('title', 'Editar cliente' )
+@section('title', 'Detalle de cliente' )
 
-@section('content')
-<div class="row">
-        <form method="POST" action="/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
-            @csrf
-            <button type="submit" class="btn btn-secondary m-1 float-left">Reestablecer contraseña</button>
-        </form>
-</div>
+@section('contents')
 
-<form method="POST" action="/clientes/{{ $cliente->id }}" class="form-group">
-    @method('PUT')
+<form method="POST" action="/usuarios/clientes/{{ $cliente->id }}/reset_pass" class="form-group">
     @csrf
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="nombres">Nombres: </label>
-                <input type="text" class="form-control @error('nombres') is-invalid @enderror" name="nombres"
-                    placeholder="Ingrese los nombres" value="{{ $cliente->nombres }}" required>
-                @error('nombres')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="apellidos">Apellidos: </label>
-                <input type="text" class="form-control @error('apellidos') is-invalid @enderror" name="apellidos"
-                    placeholder="Ingrese los apellidos" value="{{ $cliente->apellidos }}" required>
-                @error('apellidos')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="documento">Documento: </label>
-                <input type="text" class="form-control @error('documento') is-invalid @enderror" name="documento"
-                    placeholder="Ingrese el documento" value="{{ $cliente->documento }}" autofocus required>
-                @error('documento')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="correo">Correo: </label>
-                <input type="email" class="form-control @error('correo') is-invalid @enderror" name="correo"
-                    placeholder="Ingrese el correo" value="{{ $cliente->correo }}" required>
-                @error('correo')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="correo">Dirección: </label>
-                <input type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion"
-                    placeholder="Ingrese la dirección" value="{{ $cliente->direccion }}" required>
-                @error('direccion')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="correo">Telefono: </label>
-                <input type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-                    placeholder="Ingrese la dirección" value="{{ $cliente->telefono }}" required>
-                @error('telefono')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="correo">Código postal: </label>
-                <input type="text" class="form-control @error('cod_postal') is-invalid @enderror" name="cod_postal"
-                    placeholder="Ingrese código postal" value="{{ $cliente->cod_postal }}" required>
-                @error('cod_postal')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-6"></div>
-        <div class="col-sm-6"></div>
-    </div>
-    <div class="form-check">
-        <label class="form-check-label">
-            <input type="hidden" name="estado" value="0">
-            <input type="checkbox" class="form-check-input" name="estado" value="1"
-                {{ $cliente->estado ? 'checked' : '' }}>
-            Activo
-        </label>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="submit" class="btn btn-primary m-1 float-right">Guardar</button>
-        </div>
+    <div class="row justify-content-end">
+        <button type="submit" class="btn btn-primary m-1 float-right">Reestablecer contraseña</button>
     </div>
 </form>
 
-
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="nombre">Nombres:</label>
+            <p>{{ $cliente->nombres }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="nombre">Apellidos:</label>
+            <p>{{ $cliente->apellidos }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="documento">Documento: </label>
+            <p>{{ $cliente->documento }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="correo">Correo: </label>
+            <p>{{ $cliente->correo }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="correo">Dirección: </label>
+            <p>{{ $cliente->direccion }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="correo">Telefono: </label>
+            <p>{{ $cliente->telefono }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="correo">Código postal: </label>
+            <p>{{ $cliente->cod_postal }}</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="estado">Estado: </label>
+            <p>
+                <span class=" badge align-middle badge-{{ $cliente->estado ? 'success' : 'danger' }}">{{ $cliente->estado ? 'Activo' : 'Inactivo' }}</span>
+            </p>
+        </div>
+    </div>
+</div>
 @endsection

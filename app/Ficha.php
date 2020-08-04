@@ -9,7 +9,13 @@ class Ficha extends Model
     protected $table = 'ficha';
 
     protected $fillable = [
-        'nombre', 'descripcion', 'estado'
+        'nombre',
+        'descripcion',
+        'producto_id',
+        'talla_id',
+        'color_id',
+        'material_id',
+        'estado',
     ];
 
     public function insumos()

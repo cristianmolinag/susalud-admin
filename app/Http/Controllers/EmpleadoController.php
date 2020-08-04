@@ -18,7 +18,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::with('cargos', 'roles')->paginate(10);
+        $empleados = Empleado::with('cargos', 'roles')->where('estado', 1)->paginate(10);
         // return $empleados;
         return view('empleado.index', compact('empleados'));
     }
@@ -106,7 +106,6 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, Empleado $empleado)
     {
-
         $request->validate([
             'nombres' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'correo' => 'required|email|unique:empleado,correo,' . $empleado->id,
@@ -124,23 +123,12 @@ class EmpleadoController extends Controller
 
         $empleado->nombres = $request['nombres'];
         $empleado->correo = $request['correo'];
+        $empleado->estado = $request['estado'] || 0;
 
         $empleado->save();
-        $empleado->cargos()->save(Cargo::find($request['cargo_id']));
+        $empleado->cargos()->updateExistingPivot($empleado->getCargoAttribute()->pivot->cargo_id, array('cargo_id' => $request['cargo_id'], 'estado' => $request['estado'] || 0) , true);
         $empleado->syncRoles([$request['rol']]);
 
         return redirect()->route('empleados.index')->with('message', 'Registro editado con éxito!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Empleado $empleado)
-    {
-        $empleado->delete();
-        return redirect()->route('empleados.index')->with('message', 'Registro eliminado con éxito!');
     }
 }

@@ -19,6 +19,28 @@
     @hasSection('crear producto')
         <a class="btn btn-primary" href="{{url('productos/productos/create')}}">Nuevo</a>
     @endif
+    @hasSection('crear cargo')
+        <a class="btn btn-primary" href="{{url('usuarios/cargos/create')}}">Nuevo</a>
+    @endif
+    @hasSection('crear empleado')
+        <a class="btn btn-primary" href="{{url('usuarios/empleados/create')}}">Crear contrato</a>
+    @endif
+    @hasSection('crear proveedor')
+        <a class="btn btn-primary" href="{{url('stock/proveedores/create')}}">Crear Proveedor</a>
+    @endif
+    @hasSection('crear insumo')
+        <a class="btn btn-primary" href="{{url('stock/insumos/create')}}">Crear Insumo</a>
+    @endif
+    @hasSection('crear bodega')
+        <a class="btn btn-primary" href="{{url('stock/bodegas/create')}}">Agregar insumo</a>
+    @endif
+    @hasSection('crear proceso')
+        <a class="btn btn-primary" href="{{url('produccion/procesos/create')}}">Crear proceso</a>
+    @endif
+    @hasSection('crear ficha')
+        <a class="btn btn-primary" href="{{url('produccion/fichas/create')}}">Crear Ficha Técnica</a>
+    @endif
+
 
 </div>
 <div class="row justify-content-center">

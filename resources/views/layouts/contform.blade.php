@@ -10,8 +10,8 @@
                 <div class="card-text">
                     <a href="{{ url()->previous() }}" class="text-light" >
                         <i class="material-icons">keyboard_arrow_left</i>
-                        <span class="h3 align-middle">Formularion para crear @yield('title')</span>
                     </a>
+                    <span class="h3 align-middle">Formulario para @yield('title')</span>
                 </div>
             </div>
             <div class="card-body p-5">

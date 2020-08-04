@@ -83,6 +83,7 @@ class ProcesoController extends Controller
             'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proceso,nombre,' . $proceso->id,
         ]);
 
+        $proceso->estado = $request['estado'] || 0;
         $proceso->fill($request->All());
         $proceso->save();
 

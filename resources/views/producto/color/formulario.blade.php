@@ -19,7 +19,7 @@
     @if ($color->id)
     <div class="form-check">
         <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="1" {{ $color->estado ? 'checked' : '' }}>
+            <input class="form-check-input" type="checkbox" name="estado" value="1" {{ $color->estado ? 'checked' : '' }}>
             Activo
             <span class="form-check-sign">
                 <span class="check"></span>

@@ -92,7 +92,7 @@ class ProveedorController extends Controller
             'direccion' => 'required',
             'telefono' => 'required',
         ]);
-
+        $proveedor->estado = $request['estado'] || 0;
         $proveedor->fill($request->All());
         $proveedor->save();
 

@@ -4,7 +4,7 @@
 
 @section('contents')
 
-<form method="POST" action="/pedidos/{{ $pedido->id }}" class="form-group" enctype="multipart/form-data">
+<form method="POST" action="/pedidos/pedidos/{{ $pedido->id }}" class="form-group" enctype="multipart/form-data">
   @csrf
   @if ($pedido->id)
   @method('PUT')
@@ -35,13 +35,15 @@
         <label for="estado">Estado: </label>
         <select class="form-control @error('estado') is-invalid @enderror" name="estado" id="estado">
           <option selected disabled>Seleccione una opción...</option>
-          <option selected value="Pendiente de pago">Pendiente de pago</option>
+            @foreach ($estados as $estado)
+            <option value="{{ $estado['nombre'] }}" {{ $pedido->estado == $estado['nombre'] ? 'selected' : '' }} >
+                {{ $estado['nombre'] }}</option>
+            @endforeach
+          <!-- <option selected value="Pendiente de pago">Pendiente de pago</option>
           <option selected value="Pago recibido">Pago recibido</option>
           <option selected value="Produccion">Produccion</option>
           <option selected value="Facturado">Facturado</option>
-          <option selected value="Canceladoo">Cancelado</option>
-
-
+          <option selected value="Canceladoo">Cancelado</option> -->
         </select>
         @error('estado')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.contindex')
 
 @section('title', 'Pedidos activos')
 

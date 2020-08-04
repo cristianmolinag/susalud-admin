@@ -5,70 +5,108 @@
 
 @section('contents')
 
-<form method="POST" action="/fichas/{{ $ficha->id }}" class="form-group">
-  @csrf
-  @if ($ficha->id)
-  @method('PUT')
-  @endif
+<form method="POST" action="/produccion/fichas/{{ $ficha->id }}" class="form-group">
+@csrf
+@if ($ficha->id)
+@method('PUT')
+@endif
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group @error('producto') has-danger @enderror">
+                <label for="producto" style="">Producto</label>
+                <select class="form-control" data-style="btn btn-link" name="producto">
+                    <option selected disabled>Seleccione una opción...</option>
+                    @foreach ($productos as $producto)
+                    <option value="{{ $producto }}" {{ old('producto') == $producto ? 'selected' : '' }}>
+                        {{ $producto->nombre }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('producto')
+                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+    </div>
 
-  <div class="col-sm-6">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group @error('talla') has-danger @enderror">
+                <label for="talla" style="">Talla</label>
+                <select class="form-control" data-style="btn btn-link" name="talla">
+                    <option selected disabled>Seleccione una opción...</option>
+                    @foreach ($tallas as $talla)
+                    <option value="{{ $talla }}" {{ old('talla') == $talla ? 'selected' : '' }} >
+                        {{ $talla->nombre }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('talla')
+                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group @error('color') has-danger @enderror">
+                <label for="color" style="">Color</label>
+                <select class="form-control" data-style="btn btn-link" name="color">
+                    <option selected disabled>Seleccione una opción...</option>
+                    @foreach ($colores as $color)
+                    <option value="{{ $color }}" {{ old('color') == $color ? 'selected' : '' }} >
+                        {{ $color->nombre }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('color')
+                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group @error('material') has-danger @enderror">
+                <label for="material" style="">Material</label>
+                <select class="form-control" data-style="btn btn-link" name="material">
+                    <option selected disabled>Seleccione una opción...</option>
+                    @foreach ($materiales as $material)
+                    <option value="{{ $material }}" {{ old('material') == $material ? 'selected' : '' }}>
+                        {{ $material->nombre }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('material')
+                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
-    <label for="producto_id">Producto: </label>
-    <select class="form-control @error('producto_id') is-invalid @enderror" name="producto_id" id="producto_id">
-        <option selected disabled>Seleccione una opción...</option>
-        @foreach ($productos as $producto)
-        <option value="{{ $producto->id }}"
-        {{ old('producto_id') == $producto->id  || $ficha->producto_id == $producto->id ? 'selected=selected' : '' }}>
-        {{ $producto->nombre }}</option>
-        @endforeach
-    </select>
-    @error('producto_id')
-    <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-    @enderror
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-        <span>Color:</span>
-        <div class="mb-3" id="colores"></div>
+        <label for="descripcion">Descripción: </label>
+        <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" rows="4">{{ old('descripcion', $ficha->descripcion) }}</textarea>
+        @error('descripcion')
+        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
+        @enderror
     </div>
 
-    <div class="col-sm-6">
-        <span>Talla:</span>
-        <div class="mb-3" id="tallas"></div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="descripcion">Descripción: </label>
-    <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" rows="4" placeholder="Ingrese la descripción">{{ old('descripcion', $ficha->descripcion) }}</textarea>
-    @error('descripcion')
-    <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-    @enderror
-  </div>
-
-  <p>Procesos:</p>
+   <p>Procesos:</p>
     <table class="table table-sm table-hover table-bordered">
       <thead>
-        <tr>
-          <th></th>
+        <tr class="text-center">
+          <th style="width: 5%"></th>
           <th>Proceso</th>
-          <th>Orden</th>
+          <th style="width: 10%">Orden</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($lista_procesos as $index => $proceso)
-        <tr>
-          <td class="text-center">
-            <input type="checkbox" value="{{ $proceso->id }}" name="fichaProcesos[{{$index}}][proceso]"
-            @if ($procesos)
-              @foreach ($procesos as $item) {{$item === $proceso->id ? 'checked' : ''}} @endforeach
-            @endif
-            >
+        @foreach ($fichaProcesos as $index => $proceso)
+        <tr class="text-center">
+          <td>
+            <input type="hidden" value="0" name="fichaProcesos[{{$index}}][seleccionado]">
+            <input type="checkbox" value="1" name="fichaProcesos[{{$index}}][seleccionado]">
           </td>
           <td class="text-capitalize">
-            {{ $proceso->nombre }}
+            <input type="hidden" value="{{ $proceso->proceso_id }}" name="fichaProcesos[{{$index}}][proceso_id]">
+            {{ $proceso->proceso_nombre }}
           </td>
           <td class="">
               <input type="number" class="form-control" name="fichaProcesos[{{$index}}][orden]">
@@ -85,30 +123,28 @@
   <p>Insumos:</p>
     <table class="table table-sm table-hover table-bordered">
       <thead>
-        <tr>
-          <th></th>
+        <tr class="text-center">
+          <th style="width: 5%"></th>
           <th>Insumo</th>
-          <th>cantidad</th>
+          <th style="width: 20%">cantidad</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($lista_insumos as $index => $insumo)
-        <tr>
-          <td class="text-center">
-            <input type="checkbox" value="{{ $insumo->id }}" name="fichaInsumos[{{$index}}][insumo]"
-            @if ($insumos)
-              @foreach ($insumos as $item) {{$item === $insumo->id ? 'checked' : ''}} @endforeach
-            @endif
-            >
+        @foreach ($fichaInsumos as $index => $insumo)
+        <tr class="text-center">
+          <td>
+            <input type="hidden" value="0" name="fichaInsumos[{{$index}}][seleccionado]">
+            <input type="checkbox" value="1" name="fichaInsumos[{{$index}}][seleccionado]">
           </td>
           <td class="text-capitalize">
-            {{ $insumo->nombre }}
+            <input type="hidden" value="{{ $insumo->insumo_id }}" name="fichaInsumos[{{$index}}][insumo_id]">
+            {{ $insumo->insumo_nombre }}
           </td>
           <td class="">
             <div class="input-group">
               <input type="number" class="form-control" name="fichaInsumos[{{$index}}][cantidad]">
               <div class="input-group-append">
-                <span class="input-group-text">{{$insumo->medida}}(s)</span>
+                <span class="input-group-text">{{$insumo->insumo_medida}}(s)</span>
               </div>
             </div>
           </td>
@@ -131,7 +167,6 @@
   @endif
   <div class="row mt-5">
     <div class="col-lg-12">
-      <a href="{{ url('fichas') }}" class="btn btn-danger float-left">Cancelar</a>
       <button type="submit" class="btn btn-primary float-right">Guardar</button>
     </div>
   </div>

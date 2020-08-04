@@ -18,11 +18,11 @@ class CrearTablaContrato extends Migration
             $table->boolean('estado')->default(1);
 
             $table->unsignedBigInteger('empleado_id');
-            $table->foreign('empleado_id')->references('id')->on('empleado');
-            
+            $table->foreign('empleado_id')->references('id')->on('empleado')->onDelete('cascade');;
+
             $table->unsignedBigInteger('cargo_id');
-            $table->foreign('cargo_id')->references('id')->on('cargo');
-            
+            $table->foreign('cargo_id')->references('id')->on('cargo')->onDelete('cascade');;
+
             $table->timestamps();
         });
     }

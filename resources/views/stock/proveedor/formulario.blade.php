@@ -4,67 +4,64 @@
 
 @section('contents')
 
-<form method="POST" action="/proveedores/{{ $proveedor->id }}" class="form-group">
+<form method="POST" action="/stock/proveedores/{{ $proveedor->id }}" class="form-group">
   @csrf
   @if ($proveedor->id)
   @method('PUT')
   @endif
   <div class="row">
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="documento">Documento: </label>
-        <input type="text" class="form-control @error('documento') is-invalid @enderror" name="documento"
-          placeholder="Ingrese el documento" value="{{ old('documento', $proveedor->documento) }}" autofocus>
-        @error('documento')
-        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-        @enderror
-      </div>
+        <div class="form-group @error('documento') has-danger @enderror">
+            <label for="documento">Documento</label>
+            <input type="text" class="form-control" aria-describedby="documento" value="{{ old('documento', $proveedor->documento)  }}" name="documento" autofocus>
+            @error('documento')
+                <small id="documento" class="form-text text-danger">{{ $message }}</small>
+            @enderror
+        </div>
     </div>
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="nombre">Nombre: </label>
-        <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre"
-          placeholder="Ingrese el nombre" value="{{ old('nombre', $proveedor->nombre) }}" autofocus>
-        @error('nombre')
-        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-        @enderror
-      </div>
+        <div class="form-group @error('nombre') has-danger @enderror">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" aria-describedby="nombre" value="{{ old('nombre', $proveedor->nombre)  }}" name="nombre" autofocus>
+            @error('nombre')
+                <small id="nombre" class="form-text text-danger">{{ $message }}</small>
+            @enderror
+        </div>
     </div>
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="direccion">Dirección: </label>
-        <input type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion"
-          placeholder="Ingrese la direccion" value="{{ old('direccion', $proveedor->direccion) }}" autofocus>
-        @error('direccion')
-        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-        @enderror
-      </div>
+        <div class="form-group @error('direccion') has-danger @enderror">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" aria-describedby="direccion" value="{{ old('direccion', $proveedor->direccion)  }}" name="direccion" autofocus>
+            @error('direccion')
+                <small id="direccion" class="form-text text-danger">{{ $message }}</small>
+            @enderror
+        </div>
     </div>
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="telefono">Teléfono: </label>
-        <input type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-          placeholder="Ingrese el telefono" value="{{ old('telefono', $proveedor->telefono) }}" autofocus>
-        @error('telefono')
-        <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-        @enderror
-      </div>
+        <div class="form-group @error('telefono') has-danger @enderror">
+            <label for="telefono">Teléfono</label>
+            <input type="text" class="form-control" aria-describedby="telefono" value="{{ old('telefono', $proveedor->telefono)  }}" name="telefono" autofocus>
+            @error('telefono')
+                <small id="telefono" class="form-text text-danger">{{ $message }}</small>
+            @enderror
+        </div>
     </div>
     @if ($proveedor->id)
     <div class="col-sm-6 mb-2">
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="hidden" name="estado" value="0">
-          <input type="checkbox" class="form-check-input" name="estado" value="1" {{ $proveedor->estado ? 'checked' : '' }}>
-          Activo
-        </label>
-      </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="estado" value="1" {{ $proveedor->estado ? 'checked' : '' }}>
+                Activo
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
     </div>
     @endif
   </div>
   <div class="row">
     <div class="col-lg-12">
-      <a href="{{ url('proveedores') }}" class="btn btn-danger float-left">Cancelar</a>
       <button type="submit" class="btn btn-primary float-right">Guardar</button>
     </div>
   </div>
