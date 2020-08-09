@@ -22,7 +22,9 @@ class CrearTablaHistoricoOrden extends Migration
             $table->unsignedBigInteger('empleado_id');
             $table->foreign('empleado_id')->references('id')->on('empleado');
 
-            $table->dateTime('fecha_fin', 0);
+            $table->string('estado');
+
+            $table->dateTime('fecha_fin', 0)->nullable();
 
             $table->timestamps();
         });

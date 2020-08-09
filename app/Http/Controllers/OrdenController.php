@@ -61,12 +61,12 @@ class OrdenController extends Controller
             $orden = Orden::create([
                 'pedido_id' => $pedido['id'],
                 'ficha_id' => $ficha['id'],
-                'estado' => 'Orden creada',
             ]);
 
             HistoricoOrden::create([
                 'orden_id' => $orden['id'],
-                'empleado_id',
+                'empleado_id' => Auth::id(),
+                'estado_id' => 'Orden creada',
             ]);
 
             $pedido->estado = 'Produccion';

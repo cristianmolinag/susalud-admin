@@ -24,10 +24,11 @@
       <td> {{ $orden->created_at->diffForHumans() }} </td>
       <td>
             @can('ver orden')
-            <a href="{{ route('ordenes.show', $orden) }}" class="btn btn-link btn-sm" style="padding:0px;">
-                <i class="material-icons">preview</i>
+            <a href="{{ route('ordenes.show', $orden) }}" class="btn btn-link" style="padding:0px;">
+                <i class="material-icons">preview</i> Ver detalles
             </a>
             @endcan
+
         </td>
     </tr>
     @endforeach

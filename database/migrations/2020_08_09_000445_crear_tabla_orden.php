@@ -22,8 +22,6 @@ class CrearTablaOrden extends Migration
             $table->unsignedBigInteger('ficha_id');
             $table->foreign('ficha_id')->references('id')->on('ficha');
 
-            $table->string('estado');
-
             $table->unsignedBigInteger('empleado_id');
             $table->foreign('empleado_id')->references('id')->on('empleado');
 
