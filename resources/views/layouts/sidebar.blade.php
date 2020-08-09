@@ -43,7 +43,7 @@
             </a>
           </li>
           <li class="nav-item {{ request()->is('produccion*') ? 'active' : '' }}">
-            <a class="nav-link" href="/produccion/procesos">
+            <a class="nav-link" href="/produccion/ordenes">
               <i class="material-icons">query_builder</i>
               <p>Producción</p>
             </a>

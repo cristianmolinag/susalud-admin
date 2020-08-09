@@ -14,11 +14,10 @@ class PedidoController extends Controller
      */
     public function index($val)
     {
-        if($val == 'activo'){
-            $pedidos = Pedido::with('productos', 'cliente')->where('estado', '!=', 'Facturado' )
-            ->where('estado', '!=', 'Cancelado' )->paginate(10);
-        }
-        else{
+        if ($val == 'activo') {
+            $pedidos = Pedido::with('productos', 'cliente')->where('estado', '!=', 'Facturado')
+                ->where('estado', '!=', 'Cancelado')->paginate(10);
+        } else {
             $pedidos = Pedido::with('productos', 'cliente')->paginate(10);
         }
         return view('pedido.index', compact('pedidos'));
@@ -49,10 +48,7 @@ class PedidoController extends Controller
         $estados = array(
             array('nombre' => "Pendiente de pago"),
             array('nombre' => "Pago recibido"),
-            array('nombre' => "Producción"),
-            array('nombre' => "Terminado"),
-            array('nombre' => "Facturado"),
-            array('nombre' => "Cancelado")
+            array('nombre' => "Cancelado"),
         );
 
         // return $pedido;

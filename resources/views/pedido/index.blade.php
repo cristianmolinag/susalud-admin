@@ -41,6 +41,18 @@
                 <a href="{{ route('pedidos.edit', $pedido->id) }}"
                     class="btn btn-primary btn-sm m-1">Editar</a>
                 @endcan
+                @if($pedido->estado == 'Pago recibido')
+
+                    <form action="{{ route('ordenes.store') }}" method="POST">
+                    @csrf
+                        @can('crear orden')
+                        <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
+                        <button type="submit" class="btn btn-warning btn-sm m-1" onclick="return confirm('¿Desea crear una orden de producción?')">
+                            Crear orden de producción
+                        </button>
+                        @endcan
+                    </form>
+                @endif
             </div>
         </td>
     </tr>

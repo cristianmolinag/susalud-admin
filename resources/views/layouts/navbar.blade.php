@@ -94,15 +94,15 @@
 
                 @elseif (request()->is('produccion*'))
 
-                    @can('ver procesos')
+                    @can('ver ordenes')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('produccion/procesos') ? 'text-warning' : '' }}" href="{{url('produccion/procesos/')}}">procesos</a>
+                            <a class="nav-link {{ request()->is('produccion/ordenes') ? 'text-warning' : '' }}" href="{{ url('produccion/ordenes/') }}">ordenes</a>
                         </li>
                     @endcan
 
-                    @can('ver ordenes')
+                    @can('ver procesos')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('produccion/ordenes') ? 'text-warning' : '' }}" href="#">ordenes</a>
+                            <a class="nav-link {{ request()->is('produccion/procesos') ? 'text-warning' : '' }}" href="{{url('produccion/procesos/')}}">procesos</a>
                         </li>
                     @endcan
 
@@ -111,13 +111,6 @@
                             <a class="nav-link {{ request()->is('produccion/fichas') ? 'text-warning' : '' }}" href="{{url('produccion/fichas/')}}">fichas</a>
                         </li>
                     @endcan
-
-                    @can('ver rutas')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->is('produccion/rutas') ? 'text-warning' : '' }}" href="{{url('produccion/rutas/')}}">rutas</a>
-                        </li>
-                    @endcan
-
                 @else
                 <!-- menu vacio -->
                 @endif

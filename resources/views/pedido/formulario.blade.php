@@ -39,11 +39,6 @@
             <option value="{{ $estado['nombre'] }}" {{ $pedido->estado == $estado['nombre'] ? 'selected' : '' }} >
                 {{ $estado['nombre'] }}</option>
             @endforeach
-          <!-- <option selected value="Pendiente de pago">Pendiente de pago</option>
-          <option selected value="Pago recibido">Pago recibido</option>
-          <option selected value="Produccion">Produccion</option>
-          <option selected value="Facturado">Facturado</option>
-          <option selected value="Canceladoo">Cancelado</option> -->
         </select>
         @error('estado')
         <small id="helpId" class="form-text text-danger">{{ $message }}</small>

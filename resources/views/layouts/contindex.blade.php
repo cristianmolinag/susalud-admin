@@ -5,6 +5,10 @@
     <div class="alert alert-success fade {{ session('message') ? 'show' : ''}}" role="alert">
         {{ session('message') }}
     </div>
+
+    <div class="alert alert-danger fade {{ session('error') ? 'show' : ''}}" role="alert">
+        {{ session('error') }}
+    </div>
 </div>
 <div class="row justify-content-end">
     @hasSection('crear color')
@@ -40,7 +44,6 @@
     @hasSection('crear ficha')
         <a class="btn btn-primary" href="{{url('produccion/fichas/create')}}">Crear Ficha Técnica</a>
     @endif
-
 
 </div>
 <div class="row justify-content-center">
