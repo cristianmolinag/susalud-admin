@@ -27,11 +27,6 @@ class FichaController extends Controller
         return view('produccion.ficha.index', compact('fichas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $ficha = new Ficha();
@@ -66,15 +61,8 @@ class FichaController extends Controller
         return view('produccion.ficha.formulario', compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaProcesos', 'fichaInsumos')); // compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaInsumos', 'fichaProcesos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
         $request->validate([
             'producto' => 'required',
             'talla' => 'required',
@@ -141,31 +129,38 @@ class FichaController extends Controller
         return redirect()->route('fichas.index')->with('message', 'Registro insertado con éxito!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ficha  $ficha
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ficha $ficha)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ficha  $ficha
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Ficha $ficha)
     {
-        $insumos = $ficha->insumos->pluck('id');
-        $procesos = $ficha->procesos->pluck('id');
-        $lista_insumos = Insumo::select('id', 'nombre', 'medida')->get();
-        $lista_procesos = Proceso::select('id', 'nombre')->where('estado', 1)->get();
+        $insumos = Insumo::select('id', 'nombre', 'medida')->get();
 
-        return view('produccion.ficha.formulario', compact('ficha', 'lista_insumos', 'lista_procesos', 'insumos', 'procesos'));
+        $fichaInsumos = [];
+
+        foreach ($insumos as $key => $insumo) {
+            $item = new FichaInsumo();
+            $item->insumo_id = $insumo->id;
+            $item->insumo_nombre = $insumo->nombre;
+            $item->insumo_medida = $insumo->medida;
+            array_push($fichaInsumos, $item);
+        }
+
+        $procesos = Proceso::select('id', 'nombre')->where('estado', 1)->get();
+
+        $fichaProcesos = [];
+
+        foreach ($procesos as $key => $proceso) {
+            $item = new FichaProceso();
+            $item->proceso_id = $proceso->id;
+            $item->proceso_nombre = $proceso->nombre;
+            array_push($fichaProcesos, $item);
+        }
+
+        $productos = Producto::select('id', 'nombre')->where('estado', 1)->get();
+        $tallas = Talla::select('id', 'nombre')->where('estado', 1)->get();
+        $colores = Color::select('id', 'nombre')->where('estado', 1)->get();
+        $materiales = Material::select('id', 'nombre')->where('estado', 1)->get();
+
+        return view('produccion.ficha.formulario', compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaProcesos', 'fichaInsumos')); // compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaInsumos', 'fichaProcesos'));
+   
     }
 
     /**
@@ -177,7 +172,51 @@ class FichaController extends Controller
      */
     public function update(Request $request, Ficha $ficha)
     {
-        //
+        $request->validate([
+            'descripcion' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:200',
+        ]);
+
+
+        $procesos = array_map(function ($proceso) use ($ficha) {
+            if ($proceso['orden'] > 0 && $proceso['seleccionado'] == 1) {
+                return array(
+                    'ficha_id' => $ficha->id,
+                    'proceso_id' => $proceso['proceso_id'],
+                    'orden' => $proceso['orden'],
+                );
+            }
+
+        }, $request['fichaProcesos']);
+
+        $procesos = array_filter($procesos);
+
+        if (empty($procesos)) {
+            throw ValidationException::withMessages(['fichaProcesos' => 'Verifique los procesos']);
+        }
+
+        $insumos = array_map(function ($insumo) use ($ficha) {
+            if ($insumo['cantidad'] > 0 && $insumo['seleccionado'] == 1) {
+                return array(
+                    'ficha_id' => $ficha->id,
+                    'insumo_id' => $insumo['insumo_id'],
+                    'cantidad' => $insumo['cantidad'],
+                );
+            }
+
+        }, $request->fichaInsumos);
+
+        $insumos = array_filter($insumos);
+
+        if (empty($insumos)) {
+            throw ValidationException::withMessages(['fichaInsumos' => 'Verifique los insumos']);
+        }
+
+        $ficha->descripcion = $request['descripcion'];
+        $ficha->save();
+        $ficha->insumos()->sync($insumos);
+        $ficha->procesos()->sync($procesos);
+
+        return redirect()->route('fichas.index')->with('message', 'Registro editado con éxito!');
     }
 
     /**

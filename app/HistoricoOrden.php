@@ -12,6 +12,7 @@ class HistoricoOrden extends Model
         'orden_id',
         'empleado_id',
         'fecha_fin',
+        'estado',
     ];
 
     public function orden()

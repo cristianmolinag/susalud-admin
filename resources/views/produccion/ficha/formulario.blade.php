@@ -14,10 +14,10 @@
         <div class="col-sm-6">
             <div class="form-group @error('producto') has-danger @enderror">
                 <label for="producto" style="">Producto</label>
-                <select class="form-control" data-style="btn btn-link" name="producto">
+                <select class="form-control" data-style="btn btn-link" name="producto" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($productos as $producto)
-                    <option value="{{ $producto }}" {{ old('producto') == $producto ? 'selected' : '' }}>
+                    <option value="{{ $producto }}" {{ old('producto') == $producto || $producto->id == $ficha->producto_id ? 'selected' : '' }}>
                         {{ $producto->nombre }}
                     </option>
                     @endforeach
@@ -33,10 +33,10 @@
         <div class="col-sm-4">
             <div class="form-group @error('talla') has-danger @enderror">
                 <label for="talla" style="">Talla</label>
-                <select class="form-control" data-style="btn btn-link" name="talla">
+                <select class="form-control" data-style="btn btn-link" name="talla" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($tallas as $talla)
-                    <option value="{{ $talla }}" {{ old('talla') == $talla ? 'selected' : '' }} >
+                    <option value="{{ $talla }}" {{ old('talla') == $talla || $talla->id == $ficha->talla_id ? 'selected' : '' }} >
                         {{ $talla->nombre }}
                     </option>
                     @endforeach
@@ -49,10 +49,10 @@
         <div class="col-sm-4">
             <div class="form-group @error('color') has-danger @enderror">
                 <label for="color" style="">Color</label>
-                <select class="form-control" data-style="btn btn-link" name="color">
+                <select class="form-control" data-style="btn btn-link" name="color" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($colores as $color)
-                    <option value="{{ $color }}" {{ old('color') == $color ? 'selected' : '' }} >
+                    <option value="{{ $color }}" {{ old('color') == $color || $color->id == $ficha->color_id ? 'selected' : '' }} >
                         {{ $color->nombre }}
                     </option>
                     @endforeach
@@ -65,10 +65,10 @@
         <div class="col-sm-4">
             <div class="form-group @error('material') has-danger @enderror">
                 <label for="material" style="">Material</label>
-                <select class="form-control" data-style="btn btn-link" name="material">
+                <select class="form-control" data-style="btn btn-link" name="material" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($materiales as $material)
-                    <option value="{{ $material }}" {{ old('material') == $material ? 'selected' : '' }}>
+                    <option value="{{ $material }}" {{ old('material') == $material || $material->id == $ficha->material_id ? 'selected' : '' }}>
                         {{ $material->nombre }}
                     </option>
                     @endforeach

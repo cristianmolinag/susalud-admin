@@ -11,6 +11,7 @@ class Orden extends Model
     protected $fillable = [
         'ficha_id',
         'pedido_id',
+        'empleado_id',
         'estado',
     ];
 
