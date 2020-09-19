@@ -11,14 +11,14 @@
 @method('PUT')
 @endif
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="form-group @error('producto') has-danger @enderror">
                 <label for="producto" style="">Producto</label>
                 <select class="form-control" data-style="btn btn-link" name="producto" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($productos as $producto)
                     <option value="{{ $producto }}" {{ old('producto') == $producto || $producto->id == $ficha->producto_id ? 'selected' : '' }}>
-                        {{ $producto->nombre }}
+                        {{ $producto->nombre }} - {{ $producto->material->nombre }}
                     </option>
                     @endforeach
                 </select>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="form-group @error('talla') has-danger @enderror">
                 <label for="talla" style="">Talla</label>
                 <select class="form-control" data-style="btn btn-link" name="talla" {{ $ficha->id > 0 ? 'disabled' : '' }}>
@@ -46,7 +46,7 @@
                 @enderror
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="form-group @error('color') has-danger @enderror">
                 <label for="color" style="">Color</label>
                 <select class="form-control" data-style="btn btn-link" name="color" {{ $ficha->id > 0 ? 'disabled' : '' }}>
@@ -58,22 +58,6 @@
                     @endforeach
                 </select>
                 @error('color')
-                <small id="helpId" class="form-text text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group @error('material') has-danger @enderror">
-                <label for="material" style="">Material</label>
-                <select class="form-control" data-style="btn btn-link" name="material" {{ $ficha->id > 0 ? 'disabled' : '' }}>
-                    <option selected disabled>Seleccione una opción...</option>
-                    @foreach ($materiales as $material)
-                    <option value="{{ $material }}" {{ old('material') == $material || $material->id == $ficha->material_id ? 'selected' : '' }}>
-                        {{ $material->nombre }}
-                    </option>
-                    @endforeach
-                </select>
-                @error('material')
                 <small id="helpId" class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>

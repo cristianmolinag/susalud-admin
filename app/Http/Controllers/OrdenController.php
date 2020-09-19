@@ -45,13 +45,11 @@ class OrdenController extends Controller
         $pedido = Pedido::with('productos')->where('id', $request['pedido_id'])->first();
 
         $producto_id = $pedido->productos[0]->pivot->producto_id;
-        $material_id = $pedido->productos[0]->material_id;
         $talla_id = $pedido->productos[0]->pivot->talla;
         $color_id = $pedido->productos[0]->pivot->color;
 
         // validar ficha
         $ficha = Ficha::where('producto_id', $producto_id)
-            ->where('material_id', $material_id)
             ->where('talla_id', $talla_id)
             ->where('color_id', $color_id)
             ->first();

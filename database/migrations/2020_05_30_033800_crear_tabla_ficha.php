@@ -26,8 +26,6 @@ class CrearTablaFicha extends Migration
             $table->unsignedBigInteger('color_id');
             $table->foreign('color_id')->references('id')->on('color');
 
-            $table->unsignedBigInteger('material_id');
-            $table->foreign('material_id')->references('id')->on('material');
             $table->longText('descripcion');
             $table->boolean('estado')->default(1);
             $table->timestamps();

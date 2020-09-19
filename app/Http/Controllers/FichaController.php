@@ -53,12 +53,11 @@ class FichaController extends Controller
             array_push($fichaProcesos, $item);
         }
 
-        $productos = Producto::select('id', 'nombre')->where('estado', 1)->get();
+        $productos = Producto::with('material')->where('estado', 1)->get();
         $tallas = Talla::select('id', 'nombre')->where('estado', 1)->get();
         $colores = Color::select('id', 'nombre')->where('estado', 1)->get();
-        $materiales = Material::select('id', 'nombre')->where('estado', 1)->get();
 
-        return view('produccion.ficha.formulario', compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaProcesos', 'fichaInsumos')); // compact('ficha', 'productos', 'tallas', 'colores', 'materiales', 'fichaInsumos', 'fichaProcesos'));
+        return view('produccion.ficha.formulario', compact('ficha', 'productos', 'tallas', 'colores', 'fichaProcesos', 'fichaInsumos'));
     }
 
     public function store(Request $request)
@@ -67,24 +66,21 @@ class FichaController extends Controller
             'producto' => 'required',
             'talla' => 'required',
             'color' => 'required',
-            'material' => 'required',
-            'descripcion' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:200',
+            'descripcion' => 'required|max:200',
         ]);
 
         $producto = json_decode($request->producto, true);
         $talla = json_decode($request->talla, true);
         $color = json_decode($request->color, true);
-        $material = json_decode($request->material, true);
 
-        $fichaNombre = $producto['nombre'] . " - " . $talla['nombre'] . " - " . $color['nombre'] . " - " . $material['nombre'];
+        $fichaNombre = $producto['nombre'] . " - " . $talla['nombre'] . " - " . $color['nombre'] . " - " . $producto['material']['nombre'];
 
         $ficha = Ficha::create([
             'nombre' => $fichaNombre,
             'descripcion' => $request['descripcion'],
             'producto_id' => $producto['id'],
-            'talla_id' => $talla['id'],
-            'color_id' => $color['id'],
-            'material_id' => $material['id'],
+            'talla_id' => $talla['nombre'],
+            'color_id' => $color['nombre'],
         ]);
 
         $procesos = array_map(function ($proceso) use ($ficha) {
@@ -173,7 +169,7 @@ class FichaController extends Controller
     public function update(Request $request, Ficha $ficha)
     {
         $request->validate([
-            'descripcion' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:200',
+            'descripcion' => 'required|max:200',
         ]);
 
 
