@@ -43,7 +43,7 @@ class PedidoController extends Controller
      */
     public function edit(Pedido $pedido)
     {
-        $pedido = $pedido->with('productos', 'cliente')->first();
+        $pedido = Pedido::with('productos', 'cliente')->where('id', $pedido->id)->first();
 
         $estados = array(
             array('nombre' => "Pendiente de pago"),
@@ -51,7 +51,6 @@ class PedidoController extends Controller
             array('nombre' => "Cancelado"),
         );
 
-        // return $pedido;
         return view('pedido.formulario', compact('pedido', 'estados'));
     }
 

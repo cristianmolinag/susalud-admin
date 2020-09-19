@@ -14,7 +14,7 @@
   <div class="col-sm-6">
       <div class="form-group">
         <label for="estado">Cambiar Estado: </label>
-        <select class="form-control @error('estado') is-invalid @enderror" name="estado" id="estado">
+        <select class="form-control @error('estado') is-invalid @enderror" name="estado" id="estado" {{ $pedido->estado == 'Produccion' ? 'disabled' : '' }}>
           <option selected disabled>Seleccione una opción...</option>
             @foreach ($estados as $estado)
             <option value="{{ $estado['nombre'] }}" {{ $pedido->estado == $estado['nombre'] ? 'selected' : '' }} >
