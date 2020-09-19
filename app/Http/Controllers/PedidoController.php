@@ -31,7 +31,7 @@ class PedidoController extends Controller
      */
     public function show(Pedido $pedido)
     {
-        $pedido = $pedido->with('productos', 'cliente')->first();
+        $pedido = Pedido::with('productos', 'cliente')->where('id', $pedido->id)->first();
         return view('pedido.detalle', compact('pedido'));
     }
 
