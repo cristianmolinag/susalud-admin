@@ -73,14 +73,15 @@ class FichaController extends Controller
         $talla = json_decode($request->talla, true);
         $color = json_decode($request->color, true);
 
+
         $fichaNombre = $producto['nombre'] . " - " . $talla['nombre'] . " - " . $color['nombre'] . " - " . $producto['material']['nombre'];
 
         $ficha = Ficha::create([
             'nombre' => $fichaNombre,
             'descripcion' => $request['descripcion'],
             'producto_id' => $producto['id'],
-            'talla_id' => $talla['nombre'],
-            'color_id' => $color['nombre'],
+            'talla' => $talla['nombre'],
+            'color' => $color['nombre'],
         ]);
 
         $procesos = array_map(function ($proceso) use ($ficha) {

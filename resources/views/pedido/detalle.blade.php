@@ -44,6 +44,18 @@
     <span>{{ $pedido->productos[0]->nombre }}</span>
   </div>
   <div class="form-group col-sm-4">
+    <span> <strong>Talla: </strong></span>
+    <span>{{ $pedido->productos[0]->pivot->talla }}</span>
+  </div>
+  <div class="form-group col-sm-4">
+    <span> <strong>Color: </strong></span>
+    <span>{{ $pedido->productos[0]->pivot->color }}</span>
+  </div>
+  <div class="form-group col-sm-4">
+    <span> <strong>Material: </strong></span>
+    <span>{{ $pedido->productos[0]->material->nombre }}</span>
+  </div>
+  <div class="form-group col-sm-4">
     <span> <strong>Cantidad: </strong></span>
     <span>{{ $pedido->productos[0]->pivot->cantidad }}</span>
   </div>

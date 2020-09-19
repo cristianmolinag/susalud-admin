@@ -36,7 +36,7 @@
                 <select class="form-control" data-style="btn btn-link" name="talla" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($tallas as $talla)
-                    <option value="{{ $talla }}" {{ old('talla') == $talla || $talla->id == $ficha->talla_id ? 'selected' : '' }} >
+                    <option value="{{ $talla }}" {{ old('talla') == $talla || $talla->nombre == $ficha->talla ? 'selected' : '' }} >
                         {{ $talla->nombre }}
                     </option>
                     @endforeach
@@ -52,7 +52,7 @@
                 <select class="form-control" data-style="btn btn-link" name="color" {{ $ficha->id > 0 ? 'disabled' : '' }}>
                     <option selected disabled>Seleccione una opción...</option>
                     @foreach ($colores as $color)
-                    <option value="{{ $color }}" {{ old('color') == $color || $color->id == $ficha->color_id ? 'selected' : '' }} >
+                    <option value="{{ $color }}" {{ old('color') == $color || $color->nombre == $ficha->color ? 'selected' : '' }} >
                         {{ $color->nombre }}
                     </option>
                     @endforeach

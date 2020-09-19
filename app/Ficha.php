@@ -12,9 +12,8 @@ class Ficha extends Model
         'nombre',
         'descripcion',
         'producto_id',
-        'talla_id',
-        'color_id',
-        'material_id',
+        'talla',
+        'color',
         'estado',
     ];
 
