@@ -129,6 +129,11 @@ class Permisos extends Seeder
         Permission::create(['name' => 'editar orden']);
         Permission::create(['name' => 'eliminar orden']);
 
+        Permission::create(['name' => 'produccion corte']);
+        Permission::create(['name' => 'produccion pegado']);
+        Permission::create(['name' => 'produccion cocido']);
+        Permission::create(['name' => 'produccion entallado']);
+
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'ver ']);
         // Permission::create(['name' => 'crear ']);
@@ -139,7 +144,10 @@ class Permisos extends Seeder
 
         // Creación de roles
         $rol_admin = Role::create(['name' => 'Administrador']);
-        $rol_operador = Role::create(['name' => 'Operador']);
+        $rol_operador_corte = Role::create(['name' => 'Operador-Corte']);
+        $rol_operador_pegado = Role::create(['name' => 'Operador-Pegado']);
+        $rol_operador_cocido = Role::create(['name' => 'Operador-Cocido']);
+        $rol_operador_entallado = Role::create(['name' => 'Operador-Entallado']);
         $rol_gerente = Role::create(['name' => 'Gerente']);
 
         // Asignación de permisos a roles
@@ -147,12 +155,11 @@ class Permisos extends Seeder
         $admin->assignRole($rol_admin->name);
 
         //Permisos de Operador
-        $rol_operador->givePermissionTo('ver bodegas');
-        $rol_operador->givePermissionTo('ver bodega');
-        $rol_operador->givePermissionTo('ver producciones');
-        $rol_operador->givePermissionTo('ver produccion');
-        $rol_operador->givePermissionTo('ver fichas');
-        $rol_operador->givePermissionTo('ver ficha');
+        $rol_operador_corte->givePermissionTo('produccion corte');
+        $rol_operador_pegado->givePermissionTo('produccion pegado');
+        $rol_operador_cocido->givePermissionTo('produccion cocido');
+        $rol_operador_entallado->givePermissionTo('produccion entallado');
+        
 
         //Permisos de Gerente
         $rol_gerente->givePermissionTo('ver bodega');
