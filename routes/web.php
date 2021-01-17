@@ -353,21 +353,9 @@ Route::middleware(['auth'])->group(function () {
                 ->middleware('permission:crear orden')
                 ->name('ordenes.store');
 
-            // Route::get('/create', 'OrdenController@create')
-            //     ->middleware('permission:crear orden')
-            //     ->name('ordenes.create');
-
             Route::put('/{orden}', 'OrdenController@update')
                 ->middleware('permission:produccion corte|produccion pegado|produccion cosido|produccion entallado')
                 ->name('ordenes.update');
-
-            // Route::delete('/{orden}', 'OrdenController@destroy')
-            //     ->middleware('permission:eliminar orden')
-            //     ->name('ordenes.destroy');
-
-            // Route::get('/{orden}/edit', 'OrdenController@edit')
-            //     ->middleware('permission:editar orden')
-            //     ->name('ordenes.edit');
         });
 
         Route::prefix('procesos')->group(function () {

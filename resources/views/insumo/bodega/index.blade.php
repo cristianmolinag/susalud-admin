@@ -28,7 +28,7 @@
                         ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'und' ) ||
                         ($bodega->cantidad <= 3000 && $bodega->insumo->medida == 'cm' )
                     )
-                    <img src="/imagenes/alert-circle.svg" alt="Alerta de insumo deficiente" title="existencis deficiente" style="width: 15px; margin-bottom: 3px;">
+                    <img src="/imagenes/alert-circle.svg" alt="Alerta de insumo deficiente" title="existencia deficiente" style="width: 15px; margin-bottom: 3px;">
                     @endif
                     {{ $bodega->cantidad }}
                 </td>

@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Proceso;
 use Spatie\Permission\Models\Role;
+use App\Proceso;
 use App\Empleado;
 use App\Cargo;
 use App\Contrato;
@@ -21,21 +21,12 @@ class Permisos extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Creacion de procesos
-        Proceso::create([
-            'nombre' => 'Corte',
-        ]);
-        Proceso::create([
-            'nombre' => 'Pegado',
-        ]);
-        Proceso::create([
-            'nombre' => 'Cosido',
-        ]);
-        Proceso::create([
-            'nombre' => 'Entallado',
-        ]);
-        Proceso::create([
-            'nombre' => 'Fin de Producción',
-        ]);
+        Proceso::create(['nombre' => 'Corte',]);
+        Proceso::create(['nombre' => 'Pegado',]);
+        Proceso::create(['nombre' => 'Cosido',]);
+        Proceso::create(['nombre' => 'Entallado',]);
+        Proceso::create(['nombre' => 'Fin de Producción',]);
+
         // Creacion de usuario administrador
         $admin =  Empleado::Create([
             'nombres' => 'Administrador Del Sistema',
@@ -155,7 +146,7 @@ class Permisos extends Seeder
 
         Permission::create(['name' => 'produccion corte']);
         Permission::create(['name' => 'produccion pegado']);
-        Permission::create(['name' => 'produccion cocido']);
+        Permission::create(['name' => 'produccion cosido']);
         Permission::create(['name' => 'produccion entallado']);
 
         // Permission::create(['name' => 'ver ']);
@@ -170,7 +161,7 @@ class Permisos extends Seeder
         $rol_admin = Role::create(['name' => 'Administrador']);
         $rol_operador_corte = Role::create(['name' => 'Corte']);
         $rol_operador_pegado = Role::create(['name' => 'Pegado']);
-        $rol_operador_cocido = Role::create(['name' => 'Cocido']);
+        $rol_operador_cocido = Role::create(['name' => 'Cosido']);
         $rol_operador_entallado = Role::create(['name' => 'Entallado']);
         $rol_gerente = Role::create(['name' => 'Gerente']);
 
