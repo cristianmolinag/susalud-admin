@@ -38,7 +38,7 @@ class ProcesoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proceso',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proceso',
         ]);
 
         Proceso::create([
@@ -80,7 +80,7 @@ class ProcesoController extends Controller
     public function update(Request $request, Proceso $proceso)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proceso,nombre,' . $proceso->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proceso,nombre,' . $proceso->id,
         ]);
 
         $proceso->estado = $request['estado'] || 0;

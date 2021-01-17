@@ -1,6 +1,6 @@
 @extends('layouts.contindex')
 
-@section('title', 'Listado de pedidos')
+@section('title', 'Histórico de pedidos')
 
 @section('contents')
 <thead>
@@ -24,11 +24,11 @@
             {{ $pedido->cliente->apellidos }} </td>
         <td class="align-middle text-center"> {{ $pedido->cliente->documento }} </td>
         <td class="align-middle text-center">
-            {{ number_format($pedido->productos[0]->pivot->precio_unitario, 2, '.', ',') }}
+            ${{ number_format($pedido->productos[0]->pivot->precio_unitario, 2, '.', ',') }}
         </td>
         <td class="align-middle text-center"> {{ $pedido->productos[0]->pivot->cantidad }} </td>
         <td class="align-middle text-center">
-            {{ number_format($pedido->productos[0]->pivot->precio_total, 2, '.', ',') }} </td>
+            ${{ number_format($pedido->productos[0]->pivot->precio_total, 2, '.', ',') }} </td>
         <td class="align-middle text-center"> {{ $pedido->estado }} </td>
         <td class="align-middle text-center"> {{ $pedido->created_at->diffForHumans() }} </td>
         <td class="align-middle text-center">
@@ -37,22 +37,6 @@
                 <a href="{{ route('pedidos.show', $pedido->id) }}"
                     class="btn btn-light btn-sm m-1">Detalles</a>
                 @endcan
-                @can('editar pedido')
-                <a href="{{ route('pedidos.edit', $pedido->id) }}"
-                    class="btn btn-primary btn-sm m-1">Editar</a>
-                @endcan
-                @if($pedido->estado == 'Pago recibido')
-
-                    <form action="{{ route('ordenes.store') }}" method="POST">
-                    @csrf
-                        @can('crear orden')
-                        <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
-                        <button type="submit" class="btn btn-warning btn-sm m-1" onclick="return confirm('¿Desea crear una orden de producción?')">
-                            Crear orden de producción
-                        </button>
-                        @endcan
-                    </form>
-                @endif
             </div>
         </td>
     </tr>

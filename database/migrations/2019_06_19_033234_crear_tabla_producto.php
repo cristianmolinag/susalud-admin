@@ -17,7 +17,7 @@ class CrearTablaProducto extends Migration
             $table->bigIncrements('id');
             $table->string('imagen')->unique();
             $table->string('nombre')->unique();
-            $table->integer('precio');
+            $table->decimal('precio', 13, 2);
 
             $table->unsignedBigInteger('material_id');
             $table->foreign('material_id')->references('id')->on('material');

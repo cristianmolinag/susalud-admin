@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Proceso;
 use Spatie\Permission\Models\Role;
 use App\Empleado;
 use App\Cargo;
@@ -19,22 +20,45 @@ class Permisos extends Seeder
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
+        // Creacion de procesos
+        Proceso::create([
+            'nombre' => 'Corte',
+        ]);
+        Proceso::create([
+            'nombre' => 'Pegado',
+        ]);
+        Proceso::create([
+            'nombre' => 'Cosido',
+        ]);
+        Proceso::create([
+            'nombre' => 'Entallado',
+        ]);
+        Proceso::create([
+            'nombre' => 'Fin de Producción',
+        ]);
+        // Creacion de usuario administrador
         $admin =  Empleado::Create([
             'nombres' => 'Administrador Del Sistema',
             'correo' => 'admin@susalud.com',
             'password' => Hash::make('secret'),
         ]);
 
-         $cargo = Cargo::Create([
-            'nombre' => 'Administrador'
-         ]);
+         $cargo = Cargo::Create(['nombre' => 'Administrador']);
+         Cargo::Create(['nombre' => 'Gerente']);
+         Cargo::Create(['nombre' => 'Operario']);
 
-         $contrato = Contrato::Create([
+         Contrato::Create([
             'empleado_id' => $admin->id,
             'cargo_id' => $cargo->id
          ]);
 
         // Creacion de permissos
+
+        Permission::create(['name' => 'menu productos']);
+        Permission::create(['name' => 'menu usuarios']);
+        Permission::create(['name' => 'menu pedidos']);
+        Permission::create(['name' => 'menu insumos']);
+        Permission::create(['name' => 'menu produccion']);
 
         Permission::create(['name' => 'ver colores']);
         Permission::create(['name' => 'ver color']);
@@ -144,10 +168,10 @@ class Permisos extends Seeder
 
         // Creación de roles
         $rol_admin = Role::create(['name' => 'Administrador']);
-        $rol_operador_corte = Role::create(['name' => 'Operador-Corte']);
-        $rol_operador_pegado = Role::create(['name' => 'Operador-Pegado']);
-        $rol_operador_cocido = Role::create(['name' => 'Operador-Cocido']);
-        $rol_operador_entallado = Role::create(['name' => 'Operador-Entallado']);
+        $rol_operador_corte = Role::create(['name' => 'Corte']);
+        $rol_operador_pegado = Role::create(['name' => 'Pegado']);
+        $rol_operador_cocido = Role::create(['name' => 'Cocido']);
+        $rol_operador_entallado = Role::create(['name' => 'Entallado']);
         $rol_gerente = Role::create(['name' => 'Gerente']);
 
         // Asignación de permisos a roles
@@ -155,15 +179,33 @@ class Permisos extends Seeder
         $admin->assignRole($rol_admin->name);
 
         //Permisos de Operador
+        $rol_operador_corte->givePermissionTo('menu produccion');
+        $rol_operador_corte->givePermissionTo('ver orden');
+        $rol_operador_corte->givePermissionTo('ver ordenes');
         $rol_operador_corte->givePermissionTo('produccion corte');
+        
+        $rol_operador_pegado->givePermissionTo('menu produccion');
+        $rol_operador_pegado->givePermissionTo('ver orden');
+        $rol_operador_pegado->givePermissionTo('ver ordenes');
         $rol_operador_pegado->givePermissionTo('produccion pegado');
-        $rol_operador_cocido->givePermissionTo('produccion cocido');
+        
+        $rol_operador_cocido->givePermissionTo('menu produccion');
+        $rol_operador_cocido->givePermissionTo('ver orden');
+        $rol_operador_cocido->givePermissionTo('ver ordenes');
+        $rol_operador_cocido->givePermissionTo('produccion cosido');
+        
+        $rol_operador_entallado->givePermissionTo('menu produccion');
+        $rol_operador_entallado->givePermissionTo('ver orden');
+        $rol_operador_entallado->givePermissionTo('ver ordenes');
         $rol_operador_entallado->givePermissionTo('produccion entallado');
         
 
         //Permisos de Gerente
+        $rol_gerente->givePermissionTo('menu insumos');
         $rol_gerente->givePermissionTo('ver bodega');
         $rol_gerente->givePermissionTo('ver bodegas');
+
+        $rol_gerente->givePermissionTo('menu pedidos');
         $rol_gerente->givePermissionTo('ver pedidos');
         $rol_gerente->givePermissionTo('ver pedido');
     }

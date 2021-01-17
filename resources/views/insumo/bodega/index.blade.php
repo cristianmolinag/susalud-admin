@@ -1,5 +1,7 @@
 @extends('layouts.contindex')
-@section('crear bodega', 'true')
+@can('crear insumo')
+@section('crear bodega', 'false')
+@endcan
 @section('title', 'Listado de insumos en bodega')
 
 @section('contents')
@@ -26,7 +28,7 @@
                         ($bodega->cantidad <= 6 && $bodega->insumo->medida == 'und' ) ||
                         ($bodega->cantidad <= 3000 && $bodega->insumo->medida == 'cm' )
                     )
-                    <img src="/imagenes/alert-circle.svg" alt="Alerta de inventario deficiente" title="Inventario deficiente" style="width: 15px; margin-bottom: 3px;">
+                    <img src="/imagenes/alert-circle.svg" alt="Alerta de insumo deficiente" title="existencis deficiente" style="width: 15px; margin-bottom: 3px;">
                     @endif
                     {{ $bodega->cantidad }}
                 </td>

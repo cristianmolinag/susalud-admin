@@ -4,7 +4,7 @@
 
 @section('contents')
 
-<form method="POST" action="/stock/insumos/{{ $insumo->id }}" class="form-group">
+<form method="POST" action="/insumos/existencias/{{ $insumo->id }}" class="form-group">
   @csrf
   @if ($insumo->id)
   @method('PUT')

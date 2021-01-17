@@ -1,6 +1,6 @@
 @extends('layouts.contindex')
-@section('crear insumo', 'true')
-@section('title', 'Listado de insumos')
+@section('crear insumo','true')
+@section('title', 'Existencia de insumos')
 
 @section('contents')
 
@@ -23,11 +23,11 @@
                 <td> {{ $insumo->proveedor->nombre }} </td>
                 <td> {{ $insumo->created_at->diffForHumans() }} </td>
                 <td>
-                    <form action="{{ route('insumos.destroy', $insumo->id) }}" method="POST">
+                    <form action="{{ route('existencias.destroy', $insumo->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                         @can('editar insumo')
-                        <a href="{{ route('insumos.edit', $insumo) }}" class="btn btn-link btn-sm" style="padding:0px;">
+                        <a href="{{ route('existencias.edit', $insumo) }}" class="btn btn-link btn-sm" style="padding:0px;">
                             <i class="material-icons">edit</i>
                         </a>
                         @endcan

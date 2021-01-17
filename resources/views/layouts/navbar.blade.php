@@ -72,23 +72,23 @@
                         </li>
                     @endcan
 
-                @elseif (request()->is('stock*'))
+                @elseif (request()->is('insumo*'))
 
                     @can('ver proveedores')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('stock/proveedores') ? 'text-warning' : '' }}" href="{{url('stock/proveedores/')}}">proveedores</a>
+                            <a class="nav-link {{ request()->is('insumos/proveedores') ? 'text-warning' : '' }}" href="{{url('insumos/proveedores/')}}">proveedores</a>
                         </li>
                     @endcan
 
                     @can('ver insumos')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('stock/insumos') ? 'text-warning' : '' }}" href="{{url('stock/insumos/')}}">insumos</a>
+                            <a class="nav-link {{ request()->is('insumos/existencias') ? 'text-warning' : '' }}" href="{{url('insumos/existencias/')}}">Existencia de insumos</a>
                         </li>
                     @endcan
 
                     @can('ver bodegas')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('stock/bodegas') ? 'text-warning' : '' }}" href="{{url('stock/bodegas/')}}">bodegas</a>
+                            <a class="nav-link {{ request()->is('insumos/bodegas') ? 'text-warning' : '' }}" href="{{url('insumos/bodegas/')}}">bodegas</a>
                         </li>
                     @endcan
 

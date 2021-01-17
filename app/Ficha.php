@@ -19,11 +19,11 @@ class Ficha extends Model
 
     public function insumos()
     {
-        return $this->belongsToMany(Insumo::class);
+        return $this->belongsToMany(Insumo::class)->withPivot(["cantidad"]);
     }
 
     public function procesos()
     {
-        return $this->belongsToMany(Proceso::class);
+        return $this->belongsToMany(Proceso::class)->withPivot(["orden"]);
     }
 }

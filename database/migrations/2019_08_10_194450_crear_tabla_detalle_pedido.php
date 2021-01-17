@@ -16,8 +16,8 @@ class CrearTablaDetallePedido extends Migration
         Schema::create('detalle_pedido', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('cantidad');
-            $table->integer('precio_unitario');
-            $table->integer('precio_total');
+            $table->decimal('precio_unitario', 13, 2);
+            $table->decimal('precio_total', 13, 2);
             $table->string('talla');
             $table->string('color');
 

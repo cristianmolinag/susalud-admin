@@ -23,7 +23,7 @@
     <div class="col-sm-6">
         <div class="form-group @error('precio') has-danger @enderror">
             <label for="precio">Precio</label>
-            <input type="text" class="form-control" aria-describedby="precio" value="{{ old('precio', $producto->precio)  }}" name="precio">
+            <input type="text" class="form-control currency" aria-describedby="precio" value="{{ old('precio', $producto->precio)  }}" name="precio">
             @error('precio')
                 <small class="form-text text-danger">{{ $message }}</small>
             @enderror

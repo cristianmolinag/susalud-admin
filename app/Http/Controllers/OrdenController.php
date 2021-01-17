@@ -6,39 +6,28 @@ use App\Ficha;
 use App\HistoricoOrden;
 use App\Orden;
 use App\Pedido;
+use App\Bodega;
+use App\Proceso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrdenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $ordenes = Orden::with('ficha', 'pedido')->paginate(10);
-        // return $ordenes;
+
+        foreach ($ordenes as $key => $orden) {
+            $proceso_actual = HistoricoOrden::where('orden_id', $orden->id)
+                ->orderByDesc('created_at')
+                ->first();
+            $orden->proceso_actual = $proceso_actual;
+        }            
+
         return view('produccion.orden.index', compact('ordenes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // traer pedido
@@ -49,13 +38,13 @@ class OrdenController extends Controller
         $color = $pedido->productos[0]->pivot->color;
 
         // validar ficha
-        $ficha = Ficha::where('producto_id', $producto_id)
+        $ficha = Ficha::with('procesos')
+            ->where('producto_id', $producto_id)
             ->where('talla', $talla)
             ->where('color', $color)
             ->first();
 
         if ($ficha) {
-
             $orden = Orden::create([
                 'empleado_id' => Auth::id(),
                 'pedido_id' => $pedido['id'],
@@ -65,7 +54,7 @@ class OrdenController extends Controller
             HistoricoOrden::create([
                 'orden_id' => $orden['id'],
                 'empleado_id' => Auth::id(),
-                'estado' => 'Orden creada',
+                'estado' => $ficha->procesos[0]->nombre,
             ]);
 
             $pedido->estado = 'Produccion';
@@ -78,55 +67,51 @@ class OrdenController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Orden $orden)
-    {
-        return $orden;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Orden $orden)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Orden $orden)
     {
-        $orden->estado = $request['estado'];
+        $ficha = Ficha::with('procesos', 'insumos')->find($orden->ficha_id);
+        
+        $ficha_proceso_actual = null;
+        $ficha_proceso_siguiente = null;
 
-        $historico = HistoricoOrden::where('orden_id', $orden['id']);
-        HistoricoOrden::create([
-            'empleado_id' => Auth::id(),
-            'orden_id' => $orden['id'],
-            'fecha_fin' => new DateTime(),
-        ]);
-    }
+        foreach ($ficha->procesos as $i => $proceso) {
+            if($proceso->nombre === $request->estado_actual){
+                $ficha_proceso_actual = $proceso->pivot->orden;
+                foreach ($ficha->procesos as $j => $pr) {
+                    if($pr->pivot->orden === $ficha_proceso_actual +1)
+                    {
+                        $ficha_proceso_siguiente = $pr;
+                    }
+                }
+            }
+        }
+        
+        if($ficha_proceso_siguiente->nombre === "Fin de Producción") {
+            foreach ($ficha->insumos as $key => $insumo) {
+                $bodega = Bodega::find($insumo->id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Orden $orden)
-    {
-        //
+                $bodega->cantidad = $bodega->cantidad - $insumo->pivot->cantidad;
+                $bodega->save();
+            }
+            $pedido = Pedido::find($orden->pedido_id);
+            $pedido->estado = 'Terminado';
+            $pedido->save();
+            HistoricoOrden::create([
+                'orden_id' => $orden['id'],
+                'empleado_id' => Auth::id(),
+                'estado' => 'Terminado',
+            ]);
+            $mensaje = "Prroducción terminada con éxito!";
+        }
+        else{
+            HistoricoOrden::create([
+                'orden_id' => $orden['id'],
+                'empleado_id' => Auth::id(),
+                'estado' => $ficha_proceso_siguiente->nombre,
+            ]);
+            $mensaje = "Proceso de produccion $request->estado_actual terminado con éxito!";
+        }
+
+        return redirect()->route('ordenes.index')->with('message', $mensaje);
     }
 }

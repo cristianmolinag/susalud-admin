@@ -16,7 +16,7 @@ class BodegaController extends Controller
     public function index()
     {
         $bodegas = Bodega::with('insumo')->orderBy('cantidad', 'asc')->paginate(10);
-        return view('stock.bodega.index', compact('bodegas'));
+        return view('insumo.bodega.index', compact('bodegas'));
     }
 
     /**
@@ -28,7 +28,7 @@ class BodegaController extends Controller
     {
         $bodega = new Bodega();
         $insumos = Insumo::select('id', 'nombre')->get();
-        return view('stock.bodega.formulario', compact('bodega', 'insumos'));
+        return view('insumo.bodega.formulario', compact('bodega', 'insumos'));
     }
 
     /**
@@ -81,7 +81,7 @@ class BodegaController extends Controller
     {
         $bodega = $bodega->with('insumo')->first();
         $insumos = Insumo::select('id', 'nombre')->get();
-        return view('stock.bodega.formulario', compact('bodega', 'insumos'));
+        return view('insumo.bodega.formulario', compact('bodega', 'insumos'));
     }
 
     /**

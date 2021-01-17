@@ -1,5 +1,6 @@
 <?php
-
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -242,7 +243,17 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::prefix('stock')->group(function () {
+    Route::prefix('insumos')->group(function () {
+
+        Route::get('/', function() {
+            $user = Auth::user();
+            if($user->hasRole('Gerente')){
+                return redirect()->route('bodegas.index');
+            }
+            else if ($user->hasRole('Administrador')){
+                return redirect()->route('proveedores.index');
+            }
+        })->middleware('permission:menu insumos');
 
         Route::prefix('proveedores')->group(function () {
 
@@ -271,31 +282,31 @@ Route::middleware(['auth'])->group(function () {
                 ->name('proveedores.edit');
         });
 
-        Route::prefix('insumos')->group(function () {
+        Route::prefix('existencias')->group(function () {
 
             Route::get('/', 'InsumoController@index')
                 ->middleware('permission:ver insumos')
-                ->name('insumos.index');
+                ->name('existencias.index');
 
             Route::post('/', 'InsumoController@store')
                 ->middleware('permission:crear insumo')
-                ->name('insumos.store');
+                ->name('existencias.store');
 
             Route::get('/create', 'InsumoController@create')
                 ->middleware('permission:crear insumo')
-                ->name('insumos.create');
+                ->name('existencias.create');
 
             Route::put('/{insumo}', 'InsumoController@update')
                 ->middleware('permission:editar insumo')
-                ->name('insumos.update');
+                ->name('existencias.update');
 
             Route::delete('/{insumo}', 'InsumoController@destroy')
                 ->middleware('permission:eliminar insumo')
-                ->name('insumos.destroy');
+                ->name('existencias.destroy');
 
             Route::get('/{insumo}/edit', 'InsumoController@edit')
                 ->middleware('permission:editar insumo')
-                ->name('insumos.edit');
+                ->name('existencias.edit');
         });
 
         Route::prefix('bodegas')->group(function () {
@@ -346,9 +357,9 @@ Route::middleware(['auth'])->group(function () {
             //     ->middleware('permission:crear orden')
             //     ->name('ordenes.create');
 
-            // Route::put('/{orden}', 'OrdenController@update')
-            //     ->middleware('permission:editar orden')
-            //     ->name('ordenes.update');
+            Route::put('/{orden}', 'OrdenController@update')
+                ->middleware('permission:produccion corte|produccion pegado|produccion cosido|produccion entallado')
+                ->name('ordenes.update');
 
             // Route::delete('/{orden}', 'OrdenController@destroy')
             //     ->middleware('permission:eliminar orden')

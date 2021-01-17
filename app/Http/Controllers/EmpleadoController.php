@@ -113,12 +113,12 @@ class EmpleadoController extends Controller
             'cargo_id' => 'required',
         ]);
 
-        if ($request['password']) {
+        if ($request['password_confirmation']) {
             $request->validate([
                 'password' => 'required|confirmed|min:6',
             ]);
 
-            $empleado->password = $request['password'];
+            $empleado->password = Hash::make($request['password']);
         }
 
         $empleado->nombres = $request['nombres'];

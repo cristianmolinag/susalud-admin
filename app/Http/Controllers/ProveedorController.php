@@ -15,7 +15,7 @@ class ProveedorController extends Controller
     public function index()
     {
         $proveedores = Proveedor::paginate(10);
-        return view('stock.proveedor.index', compact('proveedores'));
+        return view('insumo.proveedor.index', compact('proveedores'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProveedorController extends Controller
     public function create()
     {
         $proveedor = new Proveedor();
-        return view('stock.proveedor.formulario', compact('proveedor'));
+        return view('insumo.proveedor.formulario', compact('proveedor'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProveedorController extends Controller
     {
         $request->validate([
             'documento' => 'required|numeric|unique:proveedor',
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor',
             'direccion' => 'required',
             'telefono' => 'required|between:7,10',
         ]);
@@ -74,7 +74,7 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-        return view('stock.proveedor.formulario', compact('proveedor'));
+        return view('insumo.proveedor.formulario', compact('proveedor'));
     }
 
     /**
@@ -88,7 +88,7 @@ class ProveedorController extends Controller
     {
         $request->validate([
             'documento' => 'required|numeric|unique:proveedor,documento,' . $proveedor->id,
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor,nombre,' . $proveedor->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:proveedor,nombre,' . $proveedor->id,
             'direccion' => 'required',
             'telefono' => 'required',
         ]);

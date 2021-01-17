@@ -49,6 +49,10 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        if($request['precio']){
+            $request['precio'] = str_replace(',', '', $request['precio']);
+        }
+
         $request->validate([
             'colores' => 'required',
             'tallas' => 'required',
@@ -116,7 +120,10 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-
+        if($request['precio']){
+            $request['precio'] = str_replace(',', '', $request['precio']);
+        }
+        
         $request->validate([
             'colores' => 'required',
             'tallas' => 'required',

@@ -16,7 +16,7 @@ class InsumoController extends Controller
     public function index()
     {
         $insumos = Insumo::with('proveedor')->paginate(10);
-        return view('stock.insumo.index', compact('insumos'));
+        return view('insumo.existencia.index', compact('insumos'));
     }
 
     /**
@@ -28,7 +28,7 @@ class InsumoController extends Controller
     {
         $insumo = new Insumo();
         $proveedores = Proveedor::select('id', 'nombre')->where('estado', 1)->get();
-        return view('stock.insumo.formulario', compact('insumo', 'proveedores'));
+        return view('insumo.existencia.formulario', compact('insumo', 'proveedores'));
     }
 
     /**
@@ -40,7 +40,7 @@ class InsumoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:insumo',
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50',
             'medida' => 'required',
             'proveedor_id' => 'required',
         ]);
@@ -51,7 +51,7 @@ class InsumoController extends Controller
             'medida' => $request['medida']
         ]);
 
-        return redirect()->route('insumos.index')->with('message', 'Registro insertado con éxito!');
+        return redirect()->route('existencias.index')->with('message', 'Registro insertado con éxito!');
     }
 
     /**
@@ -75,7 +75,7 @@ class InsumoController extends Controller
     {
         $insumo = $insumo->with('proveedor')->first();
         $proveedores = Proveedor::select('id', 'nombre')->where('estado', 1)->get();
-        return view('stock.insumo.formulario', compact('insumo', 'proveedores'));
+        return view('insumo.existencia.formulario', compact('insumo', 'proveedores'));
     }
 
     /**
@@ -88,7 +88,7 @@ class InsumoController extends Controller
     public function update(Request $request, Insumo $insumo)
     {
         $request->validate([
-            'nombre' => 'required|string|regex:/^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:insumo,nombre,' . $insumo->id,
+            'nombre' => 'required|string|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:50|unique:insumo,nombre,' . $insumo->id,
             'medida' => 'required',
             'proveedor_id' => 'required',
         ]);
@@ -98,7 +98,7 @@ class InsumoController extends Controller
         $insumo->proveedor_id = $request['proveedor_id'];
         $insumo->save();
 
-        return redirect()->route('insumos.index')->with('message', 'Registro editado con éxito!');
+        return redirect()->route('existencias.index')->with('message', 'Registro editado con éxito!');
     }
 
     /**
@@ -110,6 +110,6 @@ class InsumoController extends Controller
     public function destroy(Insumo $insumo)
     {
         $insumo->delete();
-        return redirect()->route('insumos.index')->with('message', 'Registro eliminado con éxito!');
+        return redirect()->route('existencias.index')->with('message', 'Registro eliminado con éxito!');
     }
 }
