@@ -1,5 +1,8 @@
 @extends('layouts.contform')
+
+
  @section('title', ($ficha->id ? 'Editar' : 'Nueva') . ' ficha técnica' )
+
 @section('contents')
 
 <form method="POST" action="/produccion/fichas/{{ $ficha->id }}" class="form-group">
@@ -101,7 +104,7 @@
     <small id="helpId" class="form-text text-danger">{{ $message }}</small>
     @enderror
 
-    <p>Insumos:</p>
+  <p>Insumos:</p>
     <table class="table table-sm table-hover table-bordered">
       <thead>
         <tr class="text-center">
