@@ -88,7 +88,7 @@
 
                     @can('ver bodegas')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('insumos/bodegas') ? 'text-warning' : '' }}" href="{{url('insumos/bodegas/')}}">bodega</a>
+                            <a class="nav-link {{ request()->is('insumos/bodegas') ? 'text-warning' : '' }}" href="{{url('insumos/bodegas/')}}">bodegas</a>
                         </li>
                     @endcan
 
