@@ -101,7 +101,7 @@ class OrdenController extends Controller
                 'empleado_id' => Auth::id(),
                 'estado' => 'Terminado',
             ]);
-            $mensaje = "Prroducción terminada con éxito!";
+            $mensaje = "Producción terminada con éxito!";
         }
         else{
             HistoricoOrden::create([
