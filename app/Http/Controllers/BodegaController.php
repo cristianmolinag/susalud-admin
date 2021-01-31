@@ -79,7 +79,7 @@ class BodegaController extends Controller
      */
     public function edit(Bodega $bodega)
     {
-        $bodega = $bodega->with('insumo')->first();
+        $bodega = Bodega::with('insumo')->find($bodega->id);
         $insumos = Insumo::select('id', 'nombre')->get();
         return view('insumo.bodega.formulario', compact('bodega', 'insumos'));
     }

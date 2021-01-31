@@ -151,7 +151,7 @@ class FichaController extends Controller
             array_push($fichaProcesos, $item);
         }
 
-        $productos = Producto::select('id', 'nombre')->where('estado', 1)->get();
+        $productos = Producto::with('material')->where('estado', 1)->get();
         $tallas = Talla::select('id', 'nombre')->where('estado', 1)->get();
         $colores = Color::select('id', 'nombre')->where('estado', 1)->get();
         $materiales = Material::select('id', 'nombre')->where('estado', 1)->get();

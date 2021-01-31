@@ -88,8 +88,7 @@ class OrdenController extends Controller
         
         if($ficha_proceso_siguiente->nombre === "Fin de Producción") {
             foreach ($ficha->insumos as $key => $insumo) {
-                $bodega = Bodega::find($insumo->id);
-
+                $bodega = Bodega::where('insumo-id', $insumo->id)->first();
                 $bodega->cantidad = $bodega->cantidad - $insumo->pivot->cantidad;
                 $bodega->save();
             }
@@ -101,7 +100,7 @@ class OrdenController extends Controller
                 'empleado_id' => Auth::id(),
                 'estado' => 'Terminado',
             ]);
-            $mensaje = "Prroducción terminada con éxito!";
+            $mensaje = "Producción terminada con éxito!";
         }
         else{
             HistoricoOrden::create([
